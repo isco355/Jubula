@@ -30,7 +30,7 @@ export default class Simple extends React.Component {
   render() {
     return <View style={styles.container}>
       <Button
-        title="Consoller Again"
+        title="Consoller"
         wrapperStyle={{ marginTop: 10 }}
         onPress={this.consoleClicked}
       />

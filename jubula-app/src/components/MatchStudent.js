@@ -55,7 +55,8 @@ export default class Output extends React.Component {
     console.log("matchbutton " + name);
     return (
       <div>
-        <Text stype={styles.srow}> { name } </Text>
+        <Text 
+        stype={styles.srow}> { name } </Text>
         <Button title="Check in" onPress={checkIn({ name })} />
       </div>
     )

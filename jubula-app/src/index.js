@@ -6,11 +6,12 @@ import { connect, Provider } from 'react-redux';
 import { store } from './store';
 import * as appActions from './store/action/app';
 
-//import Output from './StudentList';
-//import Output from './Simple';
-//import Output from './Scratchpad';
-//import Output from './ImageBackground';
-import Output from './Alpha.js';
+//import Output from './components/StudentList';
+//import Output from './components/Simple';
+//import Output from './components/Scratchpad';
+//import Output from './components/ImageBackground';
+import Output from './components/Alpha.js';
+//import Output from './components/Wrangling.js';
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
