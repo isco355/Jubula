@@ -67,6 +67,12 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js?$/,
+              include: [
+                path.resolve(__dirname, 'src'),
+                path.resolve(__dirname, 'index.js'),
+                path.resolve(__dirname, 'index.ejs'),
+                path.resolve(__dirname, 'index.web.js'),
+              ],
 				loader: 'babel-loader',
 				options: {
 					cacheDirectory: true,
