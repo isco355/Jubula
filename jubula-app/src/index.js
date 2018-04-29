@@ -8,10 +8,9 @@ import * as appActions from './store/action/app';
 
 //import Output from './components/StudentList';
 //import Output from './components/Simple';
-//import Output from './components/Scratchpad';
+import Output from './components/CheckInBox';
 //import Output from './components/ImageBackground';
-import Output from './components/Alpha.js';
-//import Output from './components/Wrangling.js';
+//import Output from './components/Alpha.js';
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +

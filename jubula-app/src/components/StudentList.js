@@ -74,8 +74,8 @@ export default class Output extends React.Component {
       <ul>{stu}</ul>
     )
       //<Text> {studentHtml} </Text>
+      //<Image source={require('../assets/iphonex.png')} onLoad={this.onBackgroundLoad} />
     return <View style={styles.container}>
-      <Image source={require('../assets/iphonex.png')} onLoad={this.onBackgroundLoad} />
 
       {
         this.state.smatch

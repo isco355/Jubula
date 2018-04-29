@@ -169,22 +169,11 @@ export default class Output extends React.Component {
           */
       //return <View style={styles.alphaContainer}>
       return <View>
-       <ImageBackground
-         style={{
-            width: 375,
-            height: 750,
-            justifyContent: 'center',
-            zIndex: -1,
-         }}
-         source={require('../../assets/iphonex.png')} 
-        >
-
         <TextInput 
           onChangeText={(text) => this.studentSearch({ text })}
           placeholder="Search for student"
           style={styles.searchField}
         />
-      </ImageBackground>
  
     </View>
   }
