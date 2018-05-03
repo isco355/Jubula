@@ -1,41 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, Button } from 'react-native';
 
+import CheckInBox from './CheckInBox'
 
-const styles = StyleSheet.create({
-  srow: {
-  },
-})
-
-/*
-  const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    buttonWrapper: {
-        backgroundColor: '#00bcd4',
-        marginTop: 20,
-    },
-    buttonIcon: {
-        fontSize: 28,
-        color: '#ffffff',
-    },
-  });
-*/
-
-//<Button title="Check in" onPress={checkIn({ name })} />
 
 class MatchButton extends React.Component {
   render() {
@@ -53,7 +20,6 @@ class MatchButton extends React.Component {
     )
   }
 }
-
 
 
 export default class Output extends React.Component {
@@ -83,7 +49,7 @@ export default class Output extends React.Component {
       <div>
         {
           matches.map((sname) => {
-            return <MatchButton name={sname} style={styles.srow}/>
+            return <MatchButton name={sname} />
           })
         }
       </div>

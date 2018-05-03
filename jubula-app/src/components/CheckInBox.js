@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TextInput, Image } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
+/*
 const styles = StyleSheet.create({
   buttonIsh: {
     margin: 50,
@@ -11,24 +12,15 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   innerBox: {
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center',
   },
   matchBox: {
-    backgroundColor:'#fffaaa',
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    borderWidth:2,
   },
   checkInButton: {
-    flex: 0.3,
-    margin: 3,
   },
 });
+*/
 
-class MatchBox extends React.Component {
+class CheckInBox extends React.Component {
   constructor(props) {
     super(props)
     this.checkIn = this.checkIn.bind(this)
@@ -59,11 +51,24 @@ class MatchBox extends React.Component {
   */
   render() {
     return (
-      <View style={styles.matchBox}>
-        <View style={styles.innerBox}>
-          <Text>Bruce Juice</Text> 
+      <View style={{
+        backgroundColor:'#fffaaa',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        borderWidth:2,
+      }}>
+        <View style={{
+          flex:1,
+          alignItems:'center',
+          justifyContent:'center',
+        }}>
+          <Text>Bruce Juice</Text>
         </View>
-        <View style={styles.checkInButton}>
+        <View style={{
+          flex: 0.3,
+          margin: 3,
+        }}>
           <Button title="Check In" onPress={this.checkIn}/>
         </View>
       </View>
