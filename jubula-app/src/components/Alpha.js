@@ -5,6 +5,8 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 import StudentMatch from './MatchStudent'
 
 const styles = StyleSheet.create({
+
+  /*
   boxy: {
     height: 610,
     width: 282,
@@ -75,6 +77,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     padding: 40,
   },
+*/
+    matchBox: {
+    backgroundColor:'#fffaaa',
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    borderWidth:2,
+  },
 });
 
 export default class Output extends React.Component {
@@ -91,8 +101,8 @@ export default class Output extends React.Component {
           'Wolfe',
         ],
 
-        //smatch: null,
-        smatch: ['Maria Jose'],
+        smatch: null,
+        //smatch: ['Maria Jose'],
         searchFieldText: ''
       }
 
@@ -126,24 +136,17 @@ export default class Output extends React.Component {
     console.info("SC")
   }
 
-
-
-
-    
- 
-
-
-    studentSearch(input) {
-      console.log("studentSearch(): " + input.text);
-    }
-      /*
-      const matches = this.state.students.map((stu) => {
-        //return <ul> {stu} </ul>
-        return <MatchRow name={stu}/>
-      })
-      <Text> {matches} </Text>
-      */
-    render() {
+  studentSearch(input) {
+    console.log("studentSearch(): " + input.text);
+  }
+    /*
+    const matches = this.state.students.map((stu) => {
+      //return <ul> {stu} </ul>
+      return <MatchRow name={stu}/>
+    })
+    <Text> {matches} </Text>
+    */
+  render() {
 
     /*
     <Text style={styles.welcome}> Scratchpad </Text>
@@ -165,14 +168,23 @@ export default class Output extends React.Component {
             ? <StudentMatch matches={this.state.smatch}/>
             : null
         }*
+          style={styles.matchBox}
 
           */
       //return <View style={styles.alphaContainer}>
-      return <View>
+    return <View
+      style={{
+        backgroundColor:'#fffaaa',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        width: 280,
+        height: 610,
+       }}
+      >
         <TextInput 
           onChangeText={(text) => this.studentSearch({ text })}
           placeholder="Search for student"
-          style={styles.searchField}
         />
  
     </View>
