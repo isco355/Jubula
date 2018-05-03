@@ -4,8 +4,6 @@ import { StyleSheet, Text, Button } from 'react-native';
 
 const styles = StyleSheet.create({
   srow: {
-      fontSize: 30,
-      textAlign: 'center',
   },
 })
 
@@ -35,9 +33,26 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
   });
-  */
+*/
 
+//<Button title="Check in" onPress={checkIn({ name })} />
 
+class MatchButton extends React.Component {
+  render() {
+    const name = this.props.name
+    console.log("matchbutton " + name);
+    return (
+      <div>
+        <Text 
+          style={{
+            fontSize: 25,
+          }}>
+          { name }
+        </Text>
+      </div>
+    )
+  }
+}
 
 
 
@@ -49,18 +64,6 @@ export default class Output extends React.Component {
     console.log("checkIn for " + nn)
   }
 
-
-  MatchButton(props) {
-    const name = props.name
-    console.log("matchbutton " + name);
-    return (
-      <div>
-        <Text 
-        stype={styles.srow}> { name } </Text>
-        <Button title="Check in" onPress={checkIn({ name })} />
-      </div>
-    )
-  }
 
   render() {
     console.log("StudentMatch render(), matches prop: " + this.props.matches)
