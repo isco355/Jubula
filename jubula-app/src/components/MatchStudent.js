@@ -1,16 +1,42 @@
 import React from 'react'
-import { StyleSheet, Text, Button } from 'react-native';
-
-import CheckInBox from './CheckInBox'
-
+import { StyleSheet, Text, Button, View } from 'react-native';
 
 class MatchButton extends React.Component {
+
+  render() {
+    return (
+      <View style={{
+        backgroundColor:'#fffaaa',
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        borderWidth:2,
+      }}>
+        <View style={{
+          flex:1,
+          alignItems:'center',
+          justifyContent:'center',
+        }}>
+          <Text>Bruce Juice</Text>
+        </View>
+        <View style={{
+          flex: 0.3,
+          margin: 3,
+        }}>
+          <Button title="Check In" onPress={this.checkIn}/>
+        </View>
+      </View>
+    )
+  }
+
+
+    /*
   render() {
     const name = this.props.name
     console.log("matchbutton " + name);
     return (
       <div>
-        <Text 
+        <Text
           style={{
             fontSize: 25,
           }}>
@@ -19,6 +45,7 @@ class MatchButton extends React.Component {
       </div>
     )
   }
+  */
 }
 
 
