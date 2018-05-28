@@ -6,22 +6,30 @@ class MatchButton extends React.Component {
   render() {
     return (
       <View style={{
-        backgroundColor:'#fffaaa',
+        backgroundColor:'#778899',
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        borderWidth:2,
+        //borderWidth:2,
       }}>
+
         <View style={{
           flex:1,
           alignItems:'center',
           justifyContent:'center',
-        }}>
-          <Text>{this.props.name}</Text>
-        </View>
-        <View style={{
-          flex: 0.3,
           margin: 3,
+        }}>
+          <Text style={{
+              color: '#FFFFFF'
+            }}>
+            {this.props.name}
+          </Text>
+        </View>
+
+        <View style={{
+          flex: 0.8,
+          margin: 3,
+          fontSize: 8,
         }}>
           <Button title="Check In" onPress={this.checkIn}/>
         </View>
@@ -83,3 +91,4 @@ export default class Output extends React.Component {
     );
   }
 }
+
