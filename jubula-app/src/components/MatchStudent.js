@@ -6,15 +6,26 @@ class MatchButton extends React.Component {
   constructor(props) {
     super(props)
     this.checkIn = this.checkIn.bind(this)
+    this.checkInNet = this.checkInNet.bind(this)
   }
 
+
    checkIn() {
+     console.log("checkIn");
+   }
+
+   checkInNet() {
      //const nn = Object.values(sname)
     //const nn = sname
      //console.log("checkIn for " + nn)
     console.log("checkIn")
+    return fetch('http://google.com?q=foo', {
+      method: 'GET',
+    })
+      .then((response) => {
+        console.log("fetch response: " + response);
+    });
   }
-
 
 
   render() {
@@ -44,7 +55,7 @@ class MatchButton extends React.Component {
           flex: 0.8,
           margin: 3,
         }}>
-          <Button title="Check In" onPress={this.checkIn}/>
+          <Button title="Check In" onPress={console.log('foo')}/>
         </View>
       </View>
     )
@@ -70,7 +81,8 @@ class MatchButton extends React.Component {
 }
 
 
-export default class Output extends React.Component {
+
+export default class StudentMatch extends React.Component {
 
   render() {
     console.log("StudentMatch render(), matches prop: " + this.props.matches)
@@ -90,7 +102,7 @@ export default class Output extends React.Component {
       <div>
         {
           matches.map((sname) => {
-            return <MatchButton name={sname} checkIn={this.checkIn}/>
+            return <MatchButton name={sname}/>
           })
         }
       </div>

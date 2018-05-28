@@ -7,26 +7,27 @@ import StudentMatch from './MatchStudent'
 export default class Output extends React.Component {
   constructor(props) {
     super(props)
-      this.state = {
-        students: [
-          'Ball',
-          "D'Esterre Darby",
-          'Hallowell',
-          'Maria Jose',
-          'Saumarez',
-          'Westcott',
-          'Wolfe',
-        ],
 
-        studentMatch: null,
-        //studentMatch: ['Maria Jose'],
-        searchFieldText: ''
-      }
+    this.state = {
+      students: [
+        'Ball',
+        "D'Esterre Darby",
+        'Hallowell',
+        'Maria Jose',
+        'Saumarez',
+        'Westcott',
+        'Wolfe',
+      ],
 
-      this.loadStudentList = this.loadStudentList.bind(this)
-      this.findMatches = this.findMatches.bind(this)
-      this.searchClicked = this.searchClicked.bind(this)
-      this.studentSearch = this.studentSearch.bind(this)
+      studentMatch: null,
+      //studentMatch: ['Maria Jose'],
+      searchFieldText: ''
+    }
+
+    this.loadStudentList = this.loadStudentList.bind(this)
+    this.findMatches = this.findMatches.bind(this)
+    this.searchClicked = this.searchClicked.bind(this)
+    this.studentSearch = this.studentSearch.bind(this)
   }
 
   /*
@@ -127,6 +128,7 @@ export default class Output extends React.Component {
        }}
       >
 
+      <Button title="don't be stupid" onPress={console.log('foo bar baz')} />
       <Button title="Load Student List" onPress={this.loadStudentList} />
 
       {
