@@ -17,7 +17,7 @@ class MatchButton extends React.Component {
           alignItems:'center',
           justifyContent:'center',
         }}>
-          <Text>Bruce Juice</Text>
+          <Text>{this.props.name}</Text>
         </View>
         <View style={{
           flex: 0.3,
