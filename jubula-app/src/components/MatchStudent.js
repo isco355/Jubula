@@ -3,6 +3,20 @@ import { StyleSheet, Text, Button, View } from 'react-native';
 
 class MatchButton extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.checkIn = this.checkIn.bind(this)
+  }
+
+   checkIn() {
+     //const nn = Object.values(sname)
+    //const nn = sname
+     //console.log("checkIn for " + nn)
+    console.log("checkIn")
+  }
+
+
+
   render() {
     return (
       <View style={{
@@ -29,7 +43,6 @@ class MatchButton extends React.Component {
         <View style={{
           flex: 0.8,
           margin: 3,
-          fontSize: 8,
         }}>
           <Button title="Check In" onPress={this.checkIn}/>
         </View>
@@ -59,13 +72,6 @@ class MatchButton extends React.Component {
 
 export default class Output extends React.Component {
 
-  checkIn(sname) {
-    const nn = Object.values(sname)
-    //const nn = sname
-    console.log("checkIn for " + nn)
-  }
-
-
   render() {
     console.log("StudentMatch render(), matches prop: " + this.props.matches)
     console.log("matches type: " + typeof this.props.matches);
@@ -84,7 +90,7 @@ export default class Output extends React.Component {
       <div>
         {
           matches.map((sname) => {
-            return <MatchButton name={sname} />
+            return <MatchButton name={sname} checkIn={this.checkIn}/>
           })
         }
       </div>

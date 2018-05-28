@@ -23,10 +23,37 @@ export default class Output extends React.Component {
         searchFieldText: ''
       }
 
+      this.loadStudentList = this.loadStudentList.bind(this)
       this.findMatches = this.findMatches.bind(this)
       this.searchClicked = this.searchClicked.bind(this)
       this.studentSearch = this.studentSearch.bind(this)
   }
+
+  /*
+   fetch('https://mywebsite.com/endpoint/', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    firstParam: 'yourValue',
+    secondParam: 'yourOtherValue',
+  }),
+});
+    return fetch('http://google.com?q=foo', {
+      method: 'GET',
+    })
+      .then((response) => {
+        console.log("fetch response: " + response);
+      });
+*/
+
+
+  loadStudentList() {
+    console.log("LSL");
+  }
+
 
   findMatches(query) {
     if (query === '') {
@@ -99,6 +126,9 @@ export default class Output extends React.Component {
         height: 610,
        }}
       >
+
+      <Button title="Load Student List" onPress={this.loadStudentList} />
+
       {
         this.state.studentMatch
           ? <StudentMatch matches={this.state.studentMatch}/>
