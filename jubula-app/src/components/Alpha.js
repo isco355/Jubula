@@ -42,17 +42,19 @@ export default class Output extends React.Component {
     secondParam: 'yourOtherValue',
   }),
 });
-    return fetch('http://google.com?q=foo', {
-      method: 'GET',
-    })
-      .then((response) => {
-        console.log("fetch response: " + response);
-      });
 */
 
 
   loadStudentList() {
-    console.log("LSL");
+    return fetch('http://google.com?q=foo', {
+      method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((response) => {
+        console.log("fetch response: " + response);
+      });
   }
 
 
@@ -128,7 +130,6 @@ export default class Output extends React.Component {
        }}
       >
 
-      <Button title="don't be stupid" onPress={console.log('foo bar baz')} />
       <Button title="Load Student List" onPress={this.loadStudentList} />
 
       {
