@@ -46,17 +46,14 @@ export default class Output extends React.Component {
 
 
   loadStudentList() {
-    return fetch('http://google.com?q=foo', {
+    return fetch('http://localhost:9292/studentList', {
       method: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
     })
-      .then((response) => {
-        console.log("fetch response: " + response);
-      });
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("LSL fetch response: " + json)
+      })
   }
-
 
   findMatches(query) {
     if (query === '') {
