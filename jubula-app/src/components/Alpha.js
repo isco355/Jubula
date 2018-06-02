@@ -9,40 +9,15 @@ export default class Output extends React.Component {
     super(props)
 
     this.state = {
-      students: [
-        'Ball',
-        "D'Esterre Darby",
-        'Hallowell',
-        'Maria Jose',
-        'Saumarez',
-        'Westcott',
-        'Wolfe',
-      ],
-
+      students: null,
       studentMatch: null,
-      //studentMatch: ['Maria Jose'],
-      searchFieldText: ''
+      searchFieldText: '',
     }
 
     this.loadStudentList = this.loadStudentList.bind(this)
     this.findMatches = this.findMatches.bind(this)
-    this.searchClicked = this.searchClicked.bind(this)
     this.studentSearch = this.studentSearch.bind(this)
   }
-
-  /*
-   fetch('https://mywebsite.com/endpoint/', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    firstParam: 'yourValue',
-    secondParam: 'yourOtherValue',
-  }),
-});
-*/
 
 
   loadStudentList() {
@@ -51,18 +26,23 @@ export default class Output extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("LSL fetch response: " + json)
+        console.log("LSL fetch response: " + JSON.stringify(json))
+        this.setState({ students: json })
       })
   }
+
 
   findMatches(query) {
     if (query === '') {
       this.setState({ studentMatch: null })
     } else {
       let matches = []
-      this.state.students.map((stu) => {
+      console.log("this.state.students typeof: " + typeof this.state.students);
+      Object.entries(this.state.students).forEach((ii, stu) => {
+        console.log("ii: " + ii);
+        console.log("stu: " + stu);
         if (stu.toLowerCase().startsWith(query.toLowerCase())) {
-          matches.push(stu)
+          matches.push({ ii, stu })
         }
       })
       console.log("findMatches: " + matches);
@@ -72,16 +52,13 @@ export default class Output extends React.Component {
     }
   }
 
+
   studentSearch(input) {
     console.log("PSS event value: " + input.text);
     this.findMatches(input.text)
     //this.setState({ searchPrefix: event.target.value })
   }
 
-  searchClicked() {
-    this.setState({ searchFieldText: 'foobar' })
-    console.info("SC")
-  }
 
     /*
   studentSearch(input) {

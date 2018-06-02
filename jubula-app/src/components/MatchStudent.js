@@ -5,28 +5,18 @@ class MatchButton extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.checkIn = this.checkIn.bind(this)
-    this.checkInNet = this.checkInNet.bind(this)
   }
 
-
-   checkIn() {
-     console.log("checkIn");
-   }
-
-   checkInNet() {
-     //const nn = Object.values(sname)
-    //const nn = sname
-     //console.log("checkIn for " + nn)
-    console.log("checkIn")
-    return fetch('http://google.com?q=foo', {
+  checkIn() {
+    return fetch('http://localhost:9292/checkIn/' + this.props.sid, {
       method: 'GET',
     })
       .then((response) => {
         console.log("fetch response: " + response);
     });
-  }
-
+   }
 
   render() {
     return (
@@ -55,7 +45,7 @@ class MatchButton extends React.Component {
           flex: 0.8,
           margin: 3,
         }}>
-          <Button title="Check In" onPress={console.log('foo')}/>
+          <Button title="Check In" onPress={this.checkIn}/>
         </View>
       </View>
     )
@@ -81,28 +71,18 @@ class MatchButton extends React.Component {
 }
 
 
-
 export default class StudentMatch extends React.Component {
 
   render() {
     console.log("StudentMatch render(), matches prop: " + this.props.matches)
     console.log("matches type: " + typeof this.props.matches);
     console.log("matches length: " + this.props.matches.length);
-    let matches = []
-
-    if (this.props.matches.length > 0) {
-       matches = this.props.matches.map((stu) => {
-        return <ul> {stu} </ul>
-      })
-    }
-    //console.log("matches: " + JSON.stringify(matches))
-    console.log("matches: " + matches)
 
     return (
       <div>
         {
-          matches.map((sname) => {
-            return <MatchButton name={sname}/>
+          this.props.matches.map((sid, sname) => {
+            return <MatchButton id={sid} name={sname}/>
           })
         }
       </div>
