@@ -16,9 +16,12 @@ export default class Output extends React.Component {
 
     this.loadStudentList = this.loadStudentList.bind(this)
     this.findMatches = this.findMatches.bind(this)
-    this.studentSearch = this.studentSearch.bind(this)
   }
 
+
+  componentDidMount() {
+    this.loadStudentList()
+  }
 
   loadStudentList() {
     return fetch('http://localhost:9292/studentList', {
@@ -32,17 +35,18 @@ export default class Output extends React.Component {
   }
 
 
-  findMatches(query) {
+  findMatches(input) {
+    const query = input.text
     if (query === '') {
       this.setState({ studentMatch: null })
     } else {
       let matches = []
       console.log("this.state.students typeof: " + typeof this.state.students);
-      Object.entries(this.state.students).forEach((ii, stu) => {
-        console.log("ii: " + ii);
-        console.log("stu: " + stu);
-        if (stu.toLowerCase().startsWith(query.toLowerCase())) {
-          matches.push({ ii, stu })
+      console.log("this.state.students: " + JSON.stringify(this.state.students))
+      Object.entries(this.state.students).map((pair) => {
+        const name = pair[1]
+        if (name.toLowerCase().startsWith(query.toLowerCase())) {
+          matches.push(pair)
         }
       })
       console.log("findMatches: " + matches);
@@ -52,24 +56,6 @@ export default class Output extends React.Component {
     }
   }
 
-
-  studentSearch(input) {
-    console.log("PSS event value: " + input.text);
-    this.findMatches(input.text)
-    //this.setState({ searchPrefix: event.target.value })
-  }
-
-
-    /*
-  studentSearch(input) {
-    console.log("studentSearch(): " + input.text);
-  }
-    const matches = this.state.students.map((stu) => {
-      //return <ul> {stu} </ul>
-      return <MatchRow name={stu}/>
-    })
-    <Text> {matches} </Text>
-    */
 
   render() {
 
@@ -104,7 +90,6 @@ export default class Output extends React.Component {
        }}
       >
 
-      <Button title="Load Student List" onPress={this.loadStudentList} />
 
       {
         this.state.studentMatch
@@ -112,10 +97,18 @@ export default class Output extends React.Component {
           : null
       }
 
-        <TextInput
-          onChangeText={(text) => this.studentSearch({ text })}
-          placeholder="Search for student"
-        />
+      <TextInput
+        onChangeText={(text) => this.findMatches({ text })}
+        placeholder="Search for student"
+      />
+
+    {
+      this.state.students
+        ? <Text>Student count: {Object.keys(this.state.students).length}</Text>
+        : <Text>Student count: 0</Text>
+    }
+
+      <Button title="Load Student List" onPress={this.loadStudentList} />
 
     </View>
   }

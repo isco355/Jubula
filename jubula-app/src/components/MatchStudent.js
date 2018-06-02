@@ -5,18 +5,22 @@ class MatchButton extends React.Component {
 
   constructor(props) {
     super(props)
+    this.studentName = this.props.name
+    this.studentId = this.props.id
 
     this.checkIn = this.checkIn.bind(this)
   }
 
   checkIn() {
-    return fetch('http://localhost:9292/checkIn/' + this.props.sid, {
+    return fetch('http://localhost:9292/checkIn/' + this.studentId, {
       method: 'GET',
     })
-      .then((response) => {
-        console.log("fetch response: " + response);
-    });
-   }
+      .then((response) => response.json()
+      .then((json) => {
+        console.log("fetch response: " + JSON.stringify(json))
+       })
+     )
+  }
 
   render() {
     return (
@@ -74,15 +78,16 @@ class MatchButton extends React.Component {
 export default class StudentMatch extends React.Component {
 
   render() {
-    console.log("StudentMatch render(), matches prop: " + this.props.matches)
-    console.log("matches type: " + typeof this.props.matches);
-    console.log("matches length: " + this.props.matches.length);
+    //console.log("StudentMatch render(), matches prop: " + this.props.matches)
+    //console.log("matches type: " + typeof this.props.matches);
+    //console.log("matches data: " + JSON.stringify(this.props.matches))
+    console.log("StudentMatch matches length: " + this.props.matches.length);
 
     return (
       <div>
         {
-          this.props.matches.map((sid, sname) => {
-            return <MatchButton id={sid} name={sname}/>
+          this.props.matches.map((pair) => {
+            return <MatchButton id={pair[0]} name={pair[1]}/>
           })
         }
       </div>
