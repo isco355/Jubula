@@ -5,7 +5,8 @@ class MatchButton extends React.Component {
 
   constructor(props) {
     super(props)
-    this.studentName = this.props.name
+    this.firstName = this.props.firstName
+    this.lastName = this.props.lastName
     this.studentId = this.props.id
 
     this.checkIn = this.checkIn.bind(this)
@@ -23,30 +24,33 @@ class MatchButton extends React.Component {
   }
 
   render() {
+    console.log("MatchButton render() with names: " + this.firstName + ", " + this.lastName)
     return (
       <View style={{
+        borderWidth: '1px',
+        borderColor: '#ee0000',
         backgroundColor:'#778899',
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        //borderWidth:2,
       }}>
 
         <View style={{
-          flex:1,
+          flex: 1,
           alignItems:'center',
           justifyContent:'center',
           margin: 3,
         }}>
           <Text style={{
-              color: '#FFFFFF'
+              color: '#FFFFFF',
+              fontSize: '20px',
             }}>
-            {this.props.name}
+            {this.firstName} {this.lastName}
           </Text>
         </View>
 
         <View style={{
-          flex: 0.8,
+          flex: 1,
           margin: 3,
         }}>
           <Button title="Check In" onPress={this.checkIn}/>
@@ -87,7 +91,9 @@ export default class StudentMatch extends React.Component {
       <div>
         {
           this.props.matches.map((pair) => {
-            return <MatchButton id={pair[0]} name={pair[1]}/>
+            const data = pair[1]
+            console.log("StudentMatch pair: " + JSON.stringify(pair[1]));
+            return <MatchButton id={data.id} firstName={data.first_name} lastName={data.last_name}/>
           })
         }
       </div>

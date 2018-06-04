@@ -44,8 +44,17 @@ export default class Output extends React.Component {
       console.log("this.state.students typeof: " + typeof this.state.students);
       console.log("this.state.students: " + JSON.stringify(this.state.students))
       Object.entries(this.state.students).map((pair) => {
-        const name = pair[1]
-        if (name.toLowerCase().startsWith(query.toLowerCase())) {
+        const key = pair[0]
+        const data = pair[1]
+        const firstName = data.first_name
+        const lastName = data.last_name
+        console.log("key: " + key);
+        console.log("data:" + JSON.stringify(data));
+        const lc = query.toLowerCase()
+        if (
+          firstName.toLowerCase().startsWith(lc) ||
+          lastName.toLowerCase().startsWith(lc)
+        ) {
           matches.push(pair)
         }
       })
@@ -79,37 +88,59 @@ export default class Output extends React.Component {
 
           */
       //return <View style={styles.alphaContainer}>
-    return <View
-      style={{
+    return <View style={{
         backgroundColor:'#fffaaa',
         flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center',
         width: 280,
         height: 610,
        }}
       >
 
+      <View style={{
+          borderWidth: '1px',
+          flex: 0.7,
+          alignItems:'center',
+          justifyContent:'center',
+        }}>
 
-      {
-        this.state.studentMatch
-          ? <StudentMatch matches={this.state.studentMatch}/>
-          : null
-      }
+          {
+            this.state.studentMatch
+              ? <StudentMatch matches={this.state.studentMatch}/>
+              : null
+          }
 
-      <TextInput
-        onChangeText={(text) => this.findMatches({ text })}
-        placeholder="Search for student"
-      />
+      </View>
 
-    {
-      this.state.students
-        ? <Text>Student count: {Object.keys(this.state.students).length}</Text>
-        : <Text>Student count: 0</Text>
-    }
+      <View style={{
+          flex:0.1,
+          alignItems:'center',
+          justifyContent:'center',
+        }}>
 
-      <Button title="Load Student List" onPress={this.loadStudentList} />
+        <TextInput
+          onChangeText={(text) => this.findMatches({ text })}
+          style={{ textAlign: 'center' }}
+          placeholder="Search for student"
+        />
 
+      </View>
+
+
+      <View style={{
+          flex:0.2,
+          alignItems:'center',
+          justifyContent:'center',
+      }}>
+
+        <Button title="Load Student List" onPress={this.loadStudentList} />
+
+        {
+          this.state.students
+            ? <Text style={{ marginTop: 6 }}>Student count: {Object.keys(this.state.students).length}</Text>
+            : <Text style={{ marginTop: 6 }}>Student count: 0</Text>
+        }
+
+      </View>
     </View>
   }
 }
