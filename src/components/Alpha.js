@@ -4,9 +4,12 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import StudentMatch from './MatchStudent'
 
+
 export default class Output extends React.Component {
   constructor(props) {
     super(props)
+
+    this.cubaHost = 'http://alsi-parliament.herokuapp.com'
 
     this.state = {
       students: null,
@@ -24,7 +27,8 @@ export default class Output extends React.Component {
   }
 
   loadStudentList() {
-    return fetch('http://localhost:9292/studentList', {
+    //return fetch('http://localhost:9292/studentList', {
+    return fetch(`${this.cubaHost}/studentList`, {
       method: 'GET',
     })
       .then((response) => response.json())
@@ -46,8 +50,8 @@ export default class Output extends React.Component {
       Object.entries(this.state.students).map((pair) => {
         const key = pair[0]
         const data = pair[1]
-        const firstName = data.first_name
-        const lastName = data.last_name
+        const firstName = data.firstName
+        const lastName = data.lastName
         console.log("key: " + key);
         console.log("data:" + JSON.stringify(data));
         const lc = query.toLowerCase()
@@ -136,8 +140,8 @@ export default class Output extends React.Component {
 
         {
           this.state.students
-            ? <Text style={{ marginTop: 6 }}>Student count: {Object.keys(this.state.students).length}</Text>
-            : <Text style={{ marginTop: 6 }}>Student count: 0</Text>
+            ? <Text style={{ marginTop: 6 }}>Students loaded: {Object.keys(this.state.students).length}</Text>
+            : <Text style={{ marginTop: 6 }}>Students loaded: 0</Text>
         }
 
       </View>

@@ -93,7 +93,7 @@ export default class StudentMatch extends React.Component {
           this.props.matches.map((pair) => {
             const data = pair[1]
             console.log("StudentMatch pair: " + JSON.stringify(pair[1]));
-            return <MatchButton id={data.id} firstName={data.first_name} lastName={data.last_name}/>
+            return <MatchButton id={data.id} firstName={data.firstName} lastName={data.lastName}/>
           })
         }
       </div>
