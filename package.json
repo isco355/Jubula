@@ -9,9 +9,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "metro": "^0.24.6",
     "react": "16.3.1",
     "react-dom": "16.3.2",
-    "react-native": "0.55.3",
+    "react-native": "^0.52.3",
     "react-native-web": "0.6.0",
     "react-redux": "^5.0.7",
     "react-universal-ui": "^0.9.31",

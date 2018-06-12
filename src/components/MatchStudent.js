@@ -27,7 +27,6 @@ class MatchButton extends React.Component {
     console.log("MatchButton render() with names: " + this.firstName + ", " + this.lastName)
     return (
       <View style={{
-        borderWidth: '1px',
         borderColor: '#ee0000',
         backgroundColor:'#778899',
         flexDirection:'row',

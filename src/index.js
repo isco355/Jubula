@@ -21,11 +21,13 @@ type Props = {
 	dispatch?: Function,
 };
 
+/*
 @connect(({ app }) => {
 	return {
 		counter: app.counter,
 	};
 })
+*/
 
 class App extends Component {
 	props: Props;

@@ -101,7 +101,6 @@ export default class Output extends React.Component {
       >
 
       <View style={{
-          borderWidth: '1px',
           flex: 0.7,
           alignItems:'center',
           justifyContent:'center',
