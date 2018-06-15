@@ -10,6 +10,8 @@ export default class Output extends React.Component {
     super(props)
 
     this.cubaHost = 'http://alsi-parliament.herokuapp.com'
+    this.studentListUrl = `${this.cubaHost}/studentList`
+    //this.studentListUrl = 'http://localhost:9292/studentList'
 
     this.state = {
       students: null,
@@ -27,13 +29,13 @@ export default class Output extends React.Component {
   }
 
   loadStudentList() {
-    //return fetch('http://localhost:9292/studentList', {
-    return fetch(`${this.cubaHost}/studentList`, {
+    console.log("LSL() retrieving students from: " + this.studentListUrl);
+    return fetch(this.studentListUrl, {
       method: 'GET',
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("LSL fetch response: " + JSON.stringify(json))
+        console.log("LSL() retrieved students: " + JSON.stringify(json))
         this.setState({ students: json })
       })
   }
@@ -90,21 +92,50 @@ export default class Output extends React.Component {
 *
           style={styles.matchBox}
 
+
+        <View style={{
+            flex: 15,
+            justifyContent:'flex-start',
+            borderWidth: '3px',
+          }}>
+
+        </View>
+
+        <View style={{
+            flex:1,
+            alignItems:'center',
+            justifyContent:'center',
+          }}>
+
+          <TextInput
+            onChangeText={(text) => this.findMatches({ text })}
+            style={{ textAlign: 'center', borderWidth: '2px', padding: '1em', margin: '2em' }}
+            placeholder="Search for student"
+          />
+
+      </View>
+
+
+
+
           */
       //return <View style={styles.alphaContainer}>
     return <View style={{
-        backgroundColor:'#fffaaa',
+        backgroundColor: '#CCFFCC',
         flexDirection:'column',
-        width: 280,
-        height: 610,
+        alignItems:'center',
+        justifyContent:'center',
+        width: 320,
+        height: 650,
        }}
       >
 
-      <View style={{
-          flex: 0.7,
-          alignItems:'center',
-          justifyContent:'center',
-        }}>
+        <View style={{
+          minHeight: 500,
+          minWidth: 320,
+          borderWidth: '2',
+        }}
+        >
 
           {
             this.state.studentMatch
@@ -112,38 +143,24 @@ export default class Output extends React.Component {
               : null
           }
 
-      </View>
+        </View>
 
-      <View style={{
-          flex:0.1,
-          alignItems:'center',
-          justifyContent:'center',
-        }}>
 
-        <TextInput
-          onChangeText={(text) => this.findMatches({ text })}
-          style={{ textAlign: 'center' }}
-          placeholder="Search for student"
+        <Button
+          title="Load Student List"
+          onPress={this.loadStudentList}
+          style={{
+            marginTop: '1em',
+          }}
         />
-
-      </View>
-
-
-      <View style={{
-          flex:0.2,
-          alignItems:'center',
-          justifyContent:'center',
-      }}>
-
-        <Button title="Load Student List" onPress={this.loadStudentList} />
 
         {
           this.state.students
-            ? <Text style={{ marginTop: 6 }}>Students loaded: {Object.keys(this.state.students).length}</Text>
-            : <Text style={{ marginTop: 6 }}>Students loaded: 0</Text>
+            ? <Text style={{ marginTop: '1em' }}>Students loaded: {Object.keys(this.state.students).length}</Text>
+            : <Text style={{ marginTop: '1em' }}>Students loaded: 0</Text>
         }
 
-      </View>
+
     </View>
   }
 }

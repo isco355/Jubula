@@ -59,22 +59,4 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	welcome: {
-		fontSize: 20,
-		textAlign: 'center',
-		margin: 10,
-	},
-	instructions: {
-		textAlign: 'center',
-		color: '#333333',
-		marginBottom: 5,
-	},
-	buttonWrapper: {
-		backgroundColor: '#00bcd4',
-		marginTop: 20,
-	},
-	buttonIcon: {
-		fontSize: 28,
-		color: '#ffffff',
-	},
 });
