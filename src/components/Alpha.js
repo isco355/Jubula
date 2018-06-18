@@ -9,6 +9,12 @@ export default class Output extends React.Component {
   constructor(props) {
     super(props)
 
+    this.scale = 2
+    this.baseWidth = 750
+    this.baseHeight = 1334
+    this.width = this.baseWidth / this.scale
+    this.height = this.baseHeight / this.scale
+
     this.state = {
     }
 
@@ -70,23 +76,75 @@ export default class Output extends React.Component {
       //return <View style={styles.alphaContainer}>
     return <View style={{
         flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-
         flexDirection:'column',
         alignItems:'center',
         justifyContent:'center',
-        width: 320,
-        height: 650,
        }}
       >
 
         <View style={{
-          flex: 0.5,
-          borderWidth: '2',
+          minWidth: this.width,
+          minHeight: this.height,
+          borderWidth: '1',
         }}
         >
 
+          <View style={{
+            flex: 1,
+            alignItems:'center',
+          }}
+          >
+
+
+
+            <View style={{
+              flex: 10,
+              borderWidth: '1',
+              minWidth: this.width,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            >
+              <Text>Area 1</Text>
+            </View>
+
+            <View style={{
+              flex: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: '1',
+              flexDirection: 'row',
+              minWidth: this.width,
+            }}
+            >
+              <Text
+                style={{
+                }}
+              >
+                Text Area 2
+              </Text>
+            </View>
+
+            <View style={{
+              flex: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: '1',
+              flexDirection: 'row',
+              minWidth: this.width,
+            }}
+            >
+             <Text style={{
+              borderWidth: '2',
+            }}
+            >
+              Text Area 3
+            </Text>
+          </View>
+
+
+
+          </View>
         </View>
     </View>
   }
