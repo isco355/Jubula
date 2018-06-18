@@ -9,9 +9,15 @@ export default class Output extends React.Component {
   constructor(props) {
     super(props)
 
-    this.scale = 2
-    this.baseWidth = 750
-    this.baseHeight = 1334
+    this.resolutions = {
+      iphonex: [ 2436, 1125 ],
+      iphone6: [ 1334, 750 ],
+    }
+
+    this.scale = 3
+    this.selectedPhone = 'iphonex'
+    this.baseHeight = this.resolutions[this.selectedPhone][0]
+    this.baseWidth = this.resolutions[this.selectedPhone][1]
     this.width = this.baseWidth / this.scale
     this.height = this.baseHeight / this.scale
 
@@ -82,14 +88,9 @@ export default class Output extends React.Component {
        }}
       >
 
-        <View style={{
-          minWidth: this.width,
-          minHeight: this.height,
-          borderWidth: '1',
-        }}
-        >
 
-        <ImageBackground style={{width: this.width, height: 500}}
+
+        <ImageBackground style={{width: this.width, height: this.height}}
           source={require('../../assets/iphonex.png')}
         >
 
@@ -151,7 +152,6 @@ export default class Output extends React.Component {
 
           </View>
         </ImageBackground>
-        </View>
     </View>
   }
 }
