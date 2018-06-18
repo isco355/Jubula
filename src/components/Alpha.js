@@ -89,6 +89,11 @@ export default class Output extends React.Component {
         }}
         >
 
+        <ImageBackground style={{width: this.width, height: 500}}
+          source={require('../../assets/iphonex.png')}
+        >
+
+
           <View style={{
             flex: 1,
             alignItems:'center',
@@ -145,6 +150,7 @@ export default class Output extends React.Component {
 
 
           </View>
+        </ImageBackground>
         </View>
     </View>
   }
