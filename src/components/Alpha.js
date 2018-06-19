@@ -13,6 +13,18 @@ export default class Output extends React.Component {
     this.studentListUrl = `${this.cubaHost}/studentList`
     //this.studentListUrl = 'http://localhost:9292/studentList'
 
+      this.resolutions = {
+        iphonex: [ 2436, 1125 ],
+        iphone6: [ 1334, 750 ],
+      }
+
+      this.scale = 3
+      this.selectedPhone = 'iphonex'
+      this.baseHeight = this.resolutions[this.selectedPhone][0]
+      this.baseWidth = this.resolutions[this.selectedPhone][1]
+      this.width = this.baseWidth / this.scale
+      this.height = this.baseHeight / this.scale
+
     this.state = {
       students: null,
       studentMatch: null,
@@ -121,46 +133,104 @@ export default class Output extends React.Component {
           */
       //return <View style={styles.alphaContainer}>
     return <View style={{
-        backgroundColor: '#CCFFCC',
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center',
-        width: 320,
-        height: 650,
-       }}
-      >
-
-        <View style={{
-          minHeight: 500,
-          minWidth: 320,
-          borderWidth: '2',
-        }}
+          flex: 1,
+          flexDirection:'column',
+          alignItems:'center',
+          justifyContent:'center',
+         }}
         >
 
-          {
-            this.state.studentMatch
-              ? <StudentMatch matches={this.state.studentMatch}/>
-              : null
-          }
+        <ImageBackground style={{width: this.width, height: this.height}}
+          source={require('../../assets/iphonex.png')}
+        >
 
+          <View style={{
+            flex: 1,
+            alignItems:'center',
+          }}
+          >
+
+            <View style={{
+              flex: 10,
+              borderWidth: '1',
+              minWidth: this.width,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            >
+
+              {
+                this.state.studentMatch
+                  ? <StudentMatch matches={this.state.studentMatch}/>
+                  : null
+              }
+
+              <Text>Area 1</Text>
+            </View>
+
+
+            <View style={{
+              flex: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: '1',
+              flexDirection: 'row',
+              minWidth: this.width,
+            }}
+            >
+
+              <TextInput
+                onChangeText={(text) => this.findMatches({ text })}
+              />
+
+              <Text
+                style={{
+                }}
+              >
+                Text Area 2
+              </Text>
+
+            </View>
+
+
+            <View style={{
+              flex: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: '1',
+              flexDirection: 'row',
+              minWidth: this.width,
+            }}
+            >
+
+            <Button
+              title="Load Student List"
+              onPress={this.loadStudentList}
+              style={{
+                marginTop: '1em',
+              }}
+            />
+
+            {
+              this.state.students
+                ? <Text style={{ marginTop: '1em' }}>Students loaded: {Object.keys(this.state.students).length}</Text>
+                : <Text style={{ marginTop: '1em' }}>Students loaded: 0</Text>
+            }
+
+             <Text style={{
+              borderWidth: '2',
+            }}
+            >
+              Text Area 3
+            </Text>
+          </View>
         </View>
 
 
-        <Button
-          title="Load Student List"
-          onPress={this.loadStudentList}
-          style={{
-            marginTop: '1em',
-          }}
-        />
 
-        {
-          this.state.students
-            ? <Text style={{ marginTop: '1em' }}>Students loaded: {Object.keys(this.state.students).length}</Text>
-            : <Text style={{ marginTop: '1em' }}>Students loaded: 0</Text>
-        }
+      </ImageBackground>
 
 
-    </View>
-  }
+  </View>
+}
 }
