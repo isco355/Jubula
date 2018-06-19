@@ -152,7 +152,6 @@ export default class Output extends React.Component {
 
             <View style={{
               flex: 10,
-              borderWidth: '1',
               minWidth: this.width,
               justifyContent: 'center',
               alignItems: 'center',
@@ -165,7 +164,6 @@ export default class Output extends React.Component {
                   : null
               }
 
-              <Text>Area 1</Text>
             </View>
 
 
@@ -173,32 +171,25 @@ export default class Output extends React.Component {
               flex: 2,
               justifyContent: 'center',
               alignItems: 'center',
-              borderWidth: '1',
               flexDirection: 'row',
               minWidth: this.width,
             }}
             >
 
               <TextInput
+                style={{ textAlign: 'center', borderWidth: '1px', padding: '1em', margin: '2em' }}
+                placeholder="Search for student"
+
                 onChangeText={(text) => this.findMatches({ text })}
               />
-
-              <Text
-                style={{
-                }}
-              >
-                Text Area 2
-              </Text>
 
             </View>
 
 
             <View style={{
-              flex: 2,
+              flex: 3,
               justifyContent: 'center',
               alignItems: 'center',
-              borderWidth: '1',
-              flexDirection: 'row',
               minWidth: this.width,
             }}
             >
@@ -217,12 +208,6 @@ export default class Output extends React.Component {
                 : <Text style={{ marginTop: '1em' }}>Students loaded: 0</Text>
             }
 
-             <Text style={{
-              borderWidth: '2',
-            }}
-            >
-              Text Area 3
-            </Text>
           </View>
         </View>
 
