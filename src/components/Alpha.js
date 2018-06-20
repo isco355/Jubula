@@ -141,7 +141,7 @@ export default class Output extends React.Component {
         >
 
         <ImageBackground style={{width: this.width, height: this.height}}
-          source={require('../../assets/iphonex.png')}
+          source={require('./assets/iphonex.png')}
         >
 
           <View style={{
