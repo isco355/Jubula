@@ -1,5 +1,5 @@
 *.swp
-web/
+vendor.cache.js
 
 
 # OSX
