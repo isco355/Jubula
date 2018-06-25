@@ -2,86 +2,36 @@ import React from 'react'
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import FindScreen from './FindScreen'
+//import { RedBoxScreen, GreenBoxScreen, BlueBoxScreen } from './ColorBoxScreens.js'
+import RedBoxScreen from './RedBoxScreen.js'
+import GreenBoxScreen from './GreenBoxScreen.js'
+import BlueBoxScreen from './BlueBoxScreen.js'
 
 
 export default class Output extends React.Component {
   constructor(props) {
     super(props)
-
-
-    //this.cubaHost = 'alsi-parliament.herokuapp.com'
-    this.cubaHost = 'localhost:9292'
-    this.studentListUrl = `http://${this.cubaHost}/studentList`
-
-    this.resolutions = {
-      iphonex: [ 2436, 1125 ],
-      iphone6: [ 1334, 750 ],
-    }
-
-    this.scale = 3
-    this.selectedPhone = 'iphonex'
-    this.baseHeight = this.resolutions[this.selectedPhone][0]
-    this.baseWidth = this.resolutions[this.selectedPhone][1]
-    this.width = this.baseWidth / this.scale
-    this.height = this.baseHeight / this.scale
-
-    this.state = {
-      studentsLoaded: null,
-    }
-
-    this.loadStudentList = this.loadStudentList.bind(this)
-    this.screenLever = this.screenLever.bind(this)
   }
 
-
   componentDidMount() {
-    this.loadStudentList()
   }
 
 
   screenLever(screenReleasingHold, supportingData) {
+    /*
     console.log("screenLever()");
     if (screenReleasingHold === 'FindScreen') {
       this.activeScreen = 'StudentInfoScreen'
     }
-  }
-
-
-  loadStudentList() {
-    console.log("LSL() retrieving students from: " + this.studentListUrl);
-    return fetch(this.studentListUrl, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("LSL() retrieved students: " + JSON.stringify(json))
-        this.activeScreen = 'FindScreen'
-        this.setState({ studentsLoaded: json })
-      })
+    */
   }
 
 
   render() {
 
-    console.log("alpha render(), activeScreen is: " + this.activeScreen);
+    //console.log("alpha render(), activeScreen is: " + this.activeScreen);
 
     /*
-    return <View style={{h
-    flex: 1,
-          flexDirection:'column',
-          alignItems:'center',
-          justifyContent:'center',
-         }}
-      >
-    */
-
-    return (
-
-        <ImageBackground style={{ width: this.width, height: this.height }}
-          source={require('./assets/iphonex.png')}
-        >
-
 
             { this.activeScreen === 'FindScreen' &&
                 <FindScreen
@@ -95,6 +45,18 @@ export default class Output extends React.Component {
             { this.activeScreen === 'StudentInfoScreen' &&
                 <StudentInfoScreen />
             }
+
+*/
+
+    return (
+
+        <ImageBackground style={{ width: this.width, height: this.height }}
+          source={require('./assets/iphonex.png')}
+        >
+
+
+        <RedBoxScreen />
+
 
 
         </ImageBackground>
