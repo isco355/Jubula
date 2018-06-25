@@ -10,9 +10,10 @@ export default class FindScreen extends React.Component {
     super(props)
 
     this.state = {
-      students: null,
+      screenWidth: this.props.screenWidth,
+      students: this.props.studentsLoaded,
       studentMatch: null,
-      searchFieldText: '',
+      searchFieldText: 'Search by name',
     }
 
     this.findMatches = this.findMatches.bind(this)
@@ -23,13 +24,13 @@ export default class FindScreen extends React.Component {
     console.log("Find Screen CDM()");
   }
 
+
   findMatches(input) {
     const query = input.text
     if (query === '') {
       this.setState({ studentMatch: null })
     } else {
       let matches = []
-      console.log("this.state.students typeof: " + typeof this.state.students);
       console.log("this.state.students: " + JSON.stringify(this.state.students))
       Object.entries(this.state.students).map((pair) => {
         const key = pair[0]
@@ -65,38 +66,9 @@ export default class FindScreen extends React.Component {
             justifyContent:'center',
           }}>
 
-          <TextInput
-            onChangeText={(text) => this.findMatches({ text })}
-            style={{ textAlign: 'center', borderWidth: '2px', padding: '1em', margin: '2em' }}
-            placeholder="Search for student"
-          />
-
-      </View>
-
-
-    )
-
-    /*
-
-
-      //return <View style={styles.alphaContainer}>
-    return <View style={{
-          flex: 1,
-          flexDirection:'column',
-          alignItems:'center',
-          justifyContent:'center',
-         }}
-        >
-
-          <View style={{
-            flex: 1,
-            alignItems:'center',
-          }}
-          >
 
             <View style={{
               flex: 10,
-              minWidth: this.width,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -104,7 +76,7 @@ export default class FindScreen extends React.Component {
 
               {
                 this.state.studentMatch
-                  ? <StudentMatch matches={this.state.studentMatch}/>
+                  ? <StudentMatch matches={this.state.studentMatch} screenLever={this.props.screenLever}/>
                   : null
               }
 
@@ -116,13 +88,12 @@ export default class FindScreen extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row',
-              minWidth: this.width,
             }}
             >
 
               <TextInput
-                style={{ textAlign: 'center', borderWidth: '1px', padding: '1em', margin: '2em' }}
-                placeholder="Search for student"
+                style={{ textAlign: 'center', borderWidth: '1px', padding: '2em', margin: '2em' }}
+                placeholder={this.state.searchFieldText}
 
                 onChangeText={(text) => this.findMatches({ text })}
               />
@@ -134,17 +105,9 @@ export default class FindScreen extends React.Component {
               flex: 3,
               justifyContent: 'center',
               alignItems: 'center',
-              minWidth: this.width,
             }}
             >
 
-            <Button
-              title="Load Student List"
-              onPress={this.loadStudentList}
-              style={{
-                marginTop: '1em',
-              }}
-            />
 
             {
               this.state.students
@@ -153,13 +116,7 @@ export default class FindScreen extends React.Component {
             }
 
           </View>
-        </View>
-
-
-      </ImageBackground>
-
-
-  </View>
-          */
-}
+      </View>
+    )
+  }
 }

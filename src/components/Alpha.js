@@ -9,7 +9,6 @@ export default class Output extends React.Component {
   constructor(props) {
     super(props)
 
-    this.activeScreen = 'FindScreen'
 
     //this.cubaHost = 'alsi-parliament.herokuapp.com'
     this.cubaHost = 'localhost:9292'
@@ -28,17 +27,24 @@ export default class Output extends React.Component {
     this.height = this.baseHeight / this.scale
 
     this.state = {
-      students: null,
-      studentMatch: null,
-      searchFieldText: '',
+      studentsLoaded: null,
     }
 
     this.loadStudentList = this.loadStudentList.bind(this)
+    this.screenLever = this.screenLever.bind(this)
   }
 
 
   componentDidMount() {
     this.loadStudentList()
+  }
+
+
+  screenLever(screenReleasingHold, supportingData) {
+    console.log("screenLever()");
+    if (screenReleasingHold === 'FindScreen') {
+      this.activeScreen = 'StudentInfoScreen'
+    }
   }
 
 
@@ -50,12 +56,16 @@ export default class Output extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         console.log("LSL() retrieved students: " + JSON.stringify(json))
-        this.setState({ students: json })
+        this.activeScreen = 'FindScreen'
+        this.setState({ studentsLoaded: json })
       })
   }
 
 
   render() {
+
+    console.log("alpha render(), activeScreen is: " + this.activeScreen);
+
     /*
     return <View style={{h
     flex: 1,
@@ -72,9 +82,20 @@ export default class Output extends React.Component {
           source={require('./assets/iphonex.png')}
         >
 
+
             { this.activeScreen === 'FindScreen' &&
-                <FindScreen />
+                <FindScreen
+                  screenLever={this.screenLever}
+                  studentsLoaded={this.state.studentsLoaded}
+                  screenWidth={this.width}
+                />
             }
+
+
+            { this.activeScreen === 'StudentInfoScreen' &&
+                <StudentInfoScreen />
+            }
+
 
         </ImageBackground>
 
