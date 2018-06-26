@@ -11,15 +11,30 @@ import BlueBoxScreen from './BlueBoxScreen.js'
 export default class Output extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      //this.activeScreen = 'RedBoxScreen'
+      activeScreen: 'GreenBoxScreen',
+      //this.activeScreen = 'BlueBoxScreen'
+    }
+
+    this.screenLever = this.screenLever.bind(this)
   }
 
   componentDidMount() {
   }
 
 
-  screenLever(screenReleasingHold, supportingData) {
+  screenLever(screenReleasingHold) {
+  //screenLever(screenReleasingHold, supportingData) {
+  //screenLever() {
+    console.log("Alpha.js screenLever() called by: " + screenReleasingHold);
+    if (screenReleasingHold === 'GreenBoxScreen') {
+      this.setState({ activeScreen: 'BlueBoxScreen' })
+    }
+
+
     /*
-    console.log("screenLever()");
     if (screenReleasingHold === 'FindScreen') {
       this.activeScreen = 'StudentInfoScreen'
     }
@@ -55,8 +70,18 @@ export default class Output extends React.Component {
         >
 
 
-        <RedBoxScreen />
-
+            { this.state.activeScreen === 'RedBoxScreen' &&
+                <RedBoxScreen screenLever={this.screenLever}
+                />
+            }
+            { this.state.activeScreen === 'GreenBoxScreen' &&
+                <GreenBoxScreen screenLever={this.screenLever}
+                />
+            }
+            { this.state.activeScreen === 'BlueBoxScreen' &&
+                <BlueBoxScreen screenLever={this.screenLever}
+                />
+            }
 
 
         </ImageBackground>
