@@ -2,7 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import FindScreen from './FindScreen'
+import FindStudentScreen from './FindStudentScreen'
+import StudentInfoScreen from './StudentInfoScreen'
 
 
 export default class Output extends React.Component {
@@ -28,6 +29,7 @@ export default class Output extends React.Component {
 
     this.state = {
       studentsLoaded: null,
+      activeStudent: null,
     }
 
     this.loadStudentList = this.loadStudentList.bind(this)
@@ -41,9 +43,14 @@ export default class Output extends React.Component {
 
 
   screenLever(screenReleasingHold, supportingData) {
-    console.log("screenLever()");
-    if (screenReleasingHold === 'FindScreen') {
+    console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
+    if (screenReleasingHold === 'StudentMatch') {
+      const studentData = this.state.studentsLoaded.filter((record) => {
+        return record.id === supportingData.studentParliamentId
+      })
+      console.log("Alpha SL studentData: " + JSON.stringify(studentData));
       this.activeScreen = 'StudentInfoScreen'
+      this.setState({ activeStudentData: studentData })
     }
   }
 
@@ -84,7 +91,7 @@ export default class Output extends React.Component {
 
 
             { this.activeScreen === 'FindScreen' &&
-                <FindScreen
+                <FindStudentScreen
                   screenLever={this.screenLever}
                   studentsLoaded={this.state.studentsLoaded}
                   screenWidth={this.width}
@@ -93,7 +100,10 @@ export default class Output extends React.Component {
 
 
             { this.activeScreen === 'StudentInfoScreen' &&
-                <StudentInfoScreen />
+                <StudentInfoScreen
+                  screenLever={this.screenLever}
+                  studentData={this.state.activeStudentData}
+              />
             }
 
 

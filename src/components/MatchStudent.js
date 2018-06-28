@@ -37,22 +37,22 @@ class MatchButton extends React.Component {
     super(props)
     this.firstName = this.props.firstName
     this.lastName = this.props.lastName
-    this.studentId = this.props.id
+    this.studentParliamentId = this.props.id
     this.screenLever = this.props.screenLever
 
-    this.switchToStudentScreen = this.switchToStudentScreen.bind(this)
+    this.release = this.release.bind(this)
   }
 
-  switchToStudentScreen() {
-    console.log("STSS() screenLever: " + this.props.screenLever);
+
+  release() {
     const studentData = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      studentId: this.studentId,
+      studentParliamentId: this.studentParliamentId,
     }
     this.props.screenLever('StudentMatch', studentData)
   }
 
+
+    /*
   checkIn() {
     return fetch('http://localhost:9292/checkIn/' + this.studentId, {
       method: 'GET',
@@ -63,6 +63,7 @@ class MatchButton extends React.Component {
        })
      )
   }
+*/
 
   render() {
     console.log("MatchButton render() with names: " + this.firstName + ", " + this.lastName)
@@ -93,7 +94,7 @@ class MatchButton extends React.Component {
           flex: 1,
           margin: 3,
         }}>
-          <Button title="Check In" onPress={this.switchToStudentScreen}/>
+          <Button title="Check In" onPress={this.release}/>
         </View>
       </View>
     )

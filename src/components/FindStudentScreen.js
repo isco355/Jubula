@@ -5,7 +5,7 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 import StudentMatch from './MatchStudent'
 
 
-export default class FindScreen extends React.Component {
+export default class FindStudentScreen extends React.Component {
   constructor(props) {
     super(props)
 
