@@ -52,19 +52,6 @@ class MatchButton extends React.Component {
   }
 
 
-    /*
-  checkIn() {
-    return fetch('http://localhost:9292/checkIn/' + this.studentId, {
-      method: 'GET',
-    })
-      .then((response) => response.json()
-      .then((json) => {
-        console.log("fetch response: " + JSON.stringify(json))
-       })
-     )
-  }
-*/
-
   render() {
     console.log("MatchButton render() with names: " + this.firstName + ", " + this.lastName)
     return (

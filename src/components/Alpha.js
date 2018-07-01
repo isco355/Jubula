@@ -27,9 +27,16 @@ export default class Output extends React.Component {
     this.width = this.baseWidth / this.scale
     this.height = this.baseHeight / this.scale
 
+    this.activeScreen = 'Alpha'
+    //this.activeScreen = 'FindStudentScreen'
+    //this.activeScreen = 'StudentInfoScreen'
+
+    //this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":17,"checkedIn":false,"designatedBus":null,"staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
+
     this.state = {
       studentsLoaded: null,
-      activeStudent: null,
+      //activeStudentData: this.sdata,
+      activeStudentData: null,
     }
 
     this.loadStudentList = this.loadStudentList.bind(this)
@@ -43,13 +50,14 @@ export default class Output extends React.Component {
 
 
   screenLever(screenReleasingHold, supportingData) {
-    console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
+    //console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
     if (screenReleasingHold === 'StudentMatch') {
-      const studentData = this.state.studentsLoaded.filter((record) => {
+      const studentDataArr = this.state.studentsLoaded.filter((record) => {
         return record.id === supportingData.studentParliamentId
       })
-      console.log("Alpha SL studentData: " + JSON.stringify(studentData));
+      const studentData = studentDataArr[0]
       this.activeScreen = 'StudentInfoScreen'
+      console.log("screenLever: " + JSON.stringify(studentData));
       this.setState({ activeStudentData: studentData })
     }
   }
@@ -63,7 +71,7 @@ export default class Output extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         console.log("LSL() retrieved students: " + JSON.stringify(json))
-        this.activeScreen = 'FindScreen'
+        this.activeScreen = 'FindStudentScreen'
         this.setState({ studentsLoaded: json })
       })
   }
@@ -89,8 +97,7 @@ export default class Output extends React.Component {
           source={require('./assets/iphonex.png')}
         >
 
-
-            { this.activeScreen === 'FindScreen' &&
+            { this.activeScreen === 'FindStudentScreen' &&
                 <FindStudentScreen
                   screenLever={this.screenLever}
                   studentsLoaded={this.state.studentsLoaded}
