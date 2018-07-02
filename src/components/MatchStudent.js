@@ -38,7 +38,6 @@ class MatchButton extends React.Component {
     this.firstName = this.props.firstName
     this.lastName = this.props.lastName
     this.studentParliamentId = this.props.id
-    this.screenLever = this.props.screenLever
 
     this.release = this.release.bind(this)
   }

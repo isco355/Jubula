@@ -23,11 +23,11 @@ export default class Output extends React.Component {
     this.width = this.baseWidth / this.scale
     this.height = this.baseHeight / this.scale
 
-    //this.activeScreen = 'Alpha'
+    this.activeScreen = 'Alpha'
     //this.activeScreen = 'FindStudentScreen'
-    this.activeScreen = 'StudentInfoScreen'
+    //this.activeScreen = 'StudentInfoScreen'
 
-    this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":16,"checkedIn":false,"designatedBus":"Richmond","staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
+    //this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":16,"checkedIn":false,"designatedBus":"Richmond","staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
 
     this.state = {
       studentsLoaded: null,
@@ -42,14 +42,14 @@ export default class Output extends React.Component {
   componentDidMount() {
     loadStudentList()
       .then((json) => {
-        //this.activeScreen = 'FindStudentScreen'
+        this.activeScreen = 'FindStudentScreen'
         this.setState({ studentsLoaded: json })
     })
   }
 
 
   screenLever(screenReleasingHold, supportingData) {
-    //console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
+    console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
     if (screenReleasingHold === 'StudentMatch') {
       const studentDataArr = this.state.studentsLoaded.filter((record) => {
         return record.id === supportingData.studentParliamentId
@@ -58,6 +58,10 @@ export default class Output extends React.Component {
       this.activeScreen = 'StudentInfoScreen'
       console.log("screenLever: " + JSON.stringify(studentData));
       this.setState({ activeStudentData: studentData })
+    }
+    if (screenReleasingHold === 'StudentInfoScreen') {
+      this.activeScreen = 'FindStudentScreen'
+      this.forceUpdate()
     }
   }
 
