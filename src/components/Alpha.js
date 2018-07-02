@@ -4,7 +4,7 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import { loadStudentList } from './net/network'
 import FindStudentScreen from './FindStudentScreen'
-import StudentInfoScreen from './StudentInfoScreen'
+import StudentInfoScreen from './student/StudentInfoScreen'
 
 
 export default class Output extends React.Component {
@@ -35,18 +35,23 @@ export default class Output extends React.Component {
       //activeStudentData: null,
     }
 
+    this.refreshStudents = this.refreshStudents.bind(this)
     this.screenLever = this.screenLever.bind(this)
   }
 
 
   componentDidMount() {
+    this.refreshStudents()
+  }
+
+
+  refreshStudents() {
     loadStudentList()
       .then((json) => {
         this.activeScreen = 'FindStudentScreen'
         this.setState({ studentsLoaded: json })
     })
   }
-
 
   screenLever(screenReleasingHold, supportingData) {
     console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
@@ -60,8 +65,7 @@ export default class Output extends React.Component {
       this.setState({ activeStudentData: studentData })
     }
     if (screenReleasingHold === 'StudentInfoScreen') {
-      this.activeScreen = 'FindStudentScreen'
-      this.forceUpdate()
+      this.refreshStudents()
     }
   }
 
