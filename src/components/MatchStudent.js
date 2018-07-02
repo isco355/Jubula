@@ -48,6 +48,7 @@ class MatchButton extends React.Component {
     const studentData = {
       studentParliamentId: this.studentParliamentId,
     }
+    console.log("MatchStudent release() studentData: ");
     this.props.screenLever('StudentMatch', studentData)
   }
 

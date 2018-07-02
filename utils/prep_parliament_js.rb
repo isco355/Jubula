@@ -1,12 +1,15 @@
-require 'byebug'; alias :breakpoint :byebug
+require 'fileutils'
 
 if not ENV['PARLIAMENT_HOME']
   raise ScriptError, 'please define $PARLIAMENT_HOME'
 else
-  @dest = ENV['PARLIAMENT_HOME']
+  @dest = "#{ENV['PARLIAMENT_HOME']}/js"
 end
 
 avoid = [
+  '.',
+  '..',
+  'index.html',
   'bundle.js',
   'iphonex.png',
   'ruui.json',
@@ -14,11 +17,26 @@ avoid = [
   'vendor.cache.js',
 ]
 
-Dir.entries('../web').each do |fn|
+## get rid of previous builds
+to_delete = []
+
+Dir.entries('web').each do |fn|
   unless avoid.include?(fn)
-    FileUtils.cp(fn, @dest)
+    to_delete << "#{'web/'}#{fn}"
   end
 end
 
-breakpoint
-puts
+FileUtils.rm(to_delete)
+
+system('ruui bundle')
+
+## copy over new build
+to_copy = []
+
+Dir.entries('web').each do |fn|
+  unless avoid.include?(fn)
+    to_copy << "#{'web/'}#{fn}"
+  end
+end
+
+FileUtils.cp(to_copy, @dest)

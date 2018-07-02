@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
+import { loadStudentList } from './net/network'
 import FindStudentScreen from './FindStudentScreen'
 import StudentInfoScreen from './StudentInfoScreen'
 
@@ -9,11 +10,6 @@ import StudentInfoScreen from './StudentInfoScreen'
 export default class Output extends React.Component {
   constructor(props) {
     super(props)
-
-
-    //this.cubaHost = 'alsi-parliament.herokuapp.com'
-    this.cubaHost = 'localhost:9292'
-    this.studentListUrl = `http://${this.cubaHost}/studentList`
 
     this.resolutions = {
       iphonex: [ 2436, 1125 ],
@@ -27,25 +23,28 @@ export default class Output extends React.Component {
     this.width = this.baseWidth / this.scale
     this.height = this.baseHeight / this.scale
 
-    this.activeScreen = 'Alpha'
+    //this.activeScreen = 'Alpha'
     //this.activeScreen = 'FindStudentScreen'
-    //this.activeScreen = 'StudentInfoScreen'
+    this.activeScreen = 'StudentInfoScreen'
 
-    //this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":17,"checkedIn":false,"designatedBus":null,"staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
+    this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":16,"checkedIn":false,"designatedBus":"Richmond","staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
 
     this.state = {
       studentsLoaded: null,
-      //activeStudentData: this.sdata,
-      activeStudentData: null,
+      activeStudentData: this.sdata,
+      //activeStudentData: null,
     }
 
-    this.loadStudentList = this.loadStudentList.bind(this)
     this.screenLever = this.screenLever.bind(this)
   }
 
 
   componentDidMount() {
-    this.loadStudentList()
+    loadStudentList()
+      .then((json) => {
+        //this.activeScreen = 'FindStudentScreen'
+        this.setState({ studentsLoaded: json })
+    })
   }
 
 
@@ -60,20 +59,6 @@ export default class Output extends React.Component {
       console.log("screenLever: " + JSON.stringify(studentData));
       this.setState({ activeStudentData: studentData })
     }
-  }
-
-
-  loadStudentList() {
-    console.log("LSL() retrieving students from: " + this.studentListUrl);
-    return fetch(this.studentListUrl, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("LSL() retrieved students: " + JSON.stringify(json))
-        this.activeScreen = 'FindStudentScreen'
-        this.setState({ studentsLoaded: json })
-      })
   }
 
 
