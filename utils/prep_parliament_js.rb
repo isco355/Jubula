@@ -1,5 +1,14 @@
 require 'fileutils'
 
+# pull out previous build file
+# ruui build a production run
+# copy to parliament
+#
+# post build manual steps:
+# - add 'assets/' to iphonex.png reference
+# - move hash js name to bundle.js
+# - push to heroku
+
 if not ENV['PARLIAMENT_HOME']
   raise ScriptError, 'please define $PARLIAMENT_HOME'
 else
