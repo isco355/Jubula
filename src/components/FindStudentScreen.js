@@ -17,13 +17,6 @@ export default class FindStudentScreen extends React.Component {
     }
 
     this.findMatches = this.findMatches.bind(this)
-
-    this.dfilter = {
-      'id': null,
-      'firstName': 'First Name',
-      'lastName' : 'Last Name',
-      'age'      : 'Age',
-    }
   }
 
 
