@@ -70,6 +70,7 @@ export default class FindStudentScreen extends React.Component {
               flex: 10,
               justifyContent: 'center',
               alignItems: 'center',
+              marginTop: '6em',
             }}
             >
 
@@ -105,9 +106,10 @@ export default class FindStudentScreen extends React.Component {
 
 
             <View style={{
-              flex: 3,
+              flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
+              marginBottom: '2em',
             }}
             >
 
