@@ -84,22 +84,4 @@ class MatchButton extends React.Component {
       </View>
     )
   }
-
-
-    /*
-  render() {
-    const name = this.props.name
-    console.log("matchbutton " + name);
-    return (
-      <div>
-        <Text
-          style={{
-            fontSize: 25,
-          }}>
-          { name }
-        </Text>
-      </div>
-    )
-  }
-  */
 }

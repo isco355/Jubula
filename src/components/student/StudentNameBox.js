@@ -43,7 +43,6 @@ export default class StudentNameBox extends React.Component {
         marginTop: '4em',
         marginLeft: '2em',
         marginRight: '1em',
-        //alignItems: 'center'
       }}
     >
       <Text style={{
@@ -58,66 +57,6 @@ export default class StudentNameBox extends React.Component {
         {"\n"}
         Checked in: {checkedInDisplay}
       </Text>
-      </View>
-      </View>
-    )
-  }
-}
-
-class DropOffInfoBox extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      name: null,
-    }
-  }
-
-  componentDidMount() {
-    const sd = this.props.studentData
-    this.setState({
-      name: sd.intendedDroppedOffByName,
-    })
-   }
-
-
-  render() {
-
-    console.log("this.state.name: " + this.state.name);
-
-    return (
-      <View>
-      <View style={{
-        flex: 5,
-        marginTop: '10em',
-        marginLeft: '2em',
-        marginRight: '1em',
-        //alignItems: 'center'
-      }}
-    >
-      <Text style={{
-        fontSize: 24,
-      }}
-      >
-        Expecting drop off by:
-        {"\n"}
-
-
-        <Text style={{
-          fontSize: 16,
-        }}
-        >
-          {this.state.name}
-        </Text>
-      </Text>
-      </View>
-      <View style={{
-        flex: 1,
-        marginTop: '15em',
-        marginLeft: '2em',
-        marginRight: '2em',
-      }}
-      >
       </View>
       </View>
     )
