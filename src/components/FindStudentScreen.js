@@ -13,7 +13,7 @@ export default class FindStudentScreen extends React.Component {
       screenWidth: this.props.screenWidth,
       students: this.props.studentsLoaded,
       studentMatch: null,
-      searchFieldText: 'Search by name',
+      searchFieldText: 'Filter by name',
     }
 
     this.findMatches = this.findMatches.bind(this)
