@@ -8,19 +8,17 @@ export default class StudentMatch extends React.Component {
     //console.log("StudentMatch render(), matches prop: " + this.props.matches)
     //console.log("matches type: " + typeof this.props.matches);
     //console.log("matches data: " + JSON.stringify(this.props.matches))
-    console.log("StudentMatch matches length: " + this.props.matches.length)
+    console.log("StudentMatch students length: " + this.props.students.length)
     console.log("StudentMatch screenLever: " + this.props.screenLever)
 
     return (
       <div>
         {
-          this.props.matches.map((pair) => {
-            const data = pair[1]
-            console.log("StudentMatch pair: " + JSON.stringify(pair[1]));
+          this.props.students.map((student) => {
             return <MatchButton
-              id={data.id}
-              firstName={data.firstName}
-              lastName={data.lastName}
+              id={student.id}
+              firstName={student.firstName}
+              lastName={student.lastName}
               screenLever={this.props.screenLever}
             />
           })

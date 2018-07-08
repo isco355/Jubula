@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
+import { View, Text, TextInput, ImageBackground, ScrollView } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import StudentMatch from './MatchStudent'
@@ -66,15 +66,23 @@ export default class FindStudentScreen extends React.Component {
             justifyContent:'center',
           }}>
 
-
-            <View style={{
+           <View style={{
               flex: 10,
               justifyContent: 'center',
               alignItems: 'center',
             }}
             >
 
-              {
+          <ScrollView>
+            {
+            this.state.students
+                ? <StudentMatch students={this.state.students} screenLever={this.props.screenLever}/>
+                  : null
+              }
+
+          </ScrollView>
+
+               {
                 this.state.studentMatch
                   ? <StudentMatch matches={this.state.studentMatch} screenLever={this.props.screenLever}/>
                   : null
