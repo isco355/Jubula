@@ -6,7 +6,7 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 import { markStudentAsCheckedIn } from './../net/network'
 
 import StudentNameBox from './StudentNameBox'
-import DropOffInfoBox from './DropOffInfoBox'
+import DropoffInfoBox from './DropoffInfoBox'
 
 
 export default class StudentInfoScreen extends React.Component {
@@ -28,7 +28,7 @@ export default class StudentInfoScreen extends React.Component {
   componentDidMount() {
     const sd = this.props.studentData;
     console.log("StudentInfoScreen DidMount() with data: " + JSON.stringify(sd));
-    console.log("StudentInfoScreen screenLever: " + this.props.screenLever);
+    //console.log("StudentInfoScreen screenLever: " + this.props.screenLever);
   }
 
   checkIn() {
@@ -55,7 +55,7 @@ export default class StudentInfoScreen extends React.Component {
           flex: 1,
           marginLeft: '1em',
           marginRight: '1em',
-          alignItems: 'left',
+          alignItems: 'flex-start',
         }}
       >
 
@@ -63,7 +63,8 @@ export default class StudentInfoScreen extends React.Component {
             marginTop: '5em',
             marginLeft: '1em',
             marginRight: '16em',
-            alignItems: 'left',
+            alignContent: 'flex-start',
+            alignItems: 'flex-start',
           }}
           >
 
@@ -73,7 +74,7 @@ export default class StudentInfoScreen extends React.Component {
         <View>
 
         <StudentNameBox studentData={this.props.studentData}/>
-        <DropOffInfoBox studentData={this.props.studentData}/>
+        <DropoffInfoBox studentData={this.props.studentData}/>
 
           {
             this.state.checkInRequestPending
@@ -84,7 +85,7 @@ export default class StudentInfoScreen extends React.Component {
         <View style={{
             marginLeft: '3em',
             marginRight: '3em',
-            alignItems: 'left',
+            alignItems: 'flex-start',
           }}
           >
           {

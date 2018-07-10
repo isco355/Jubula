@@ -3,13 +3,16 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
+import { updateStudentDropoffInfo } from '../net/network'
 
-export default class DropOffInfoBox extends React.Component {
+
+export default class DropoffInfoBox extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      name: null,
+      sdata: this.props.studentData,
+      name: this.props.studentData.droppedOffByName,
       editing: false,
     }
 
@@ -18,14 +21,9 @@ export default class DropOffInfoBox extends React.Component {
   }
 
   componentDidMount() {
-    const sd = this.props.studentData
-    this.setState({
-      name: sd.droppedOffByName,
-    })
   }
 
   editDropoff() {
-    console.log("editDropoff()");
     this.setState({ editing: true })
   }
 
@@ -51,8 +49,8 @@ export default class DropOffInfoBox extends React.Component {
             {"\n"}
 
               { this.state.editing
-                  ? <EditDropOffInfoBox data={this.state} />
-                  : <DropOffInfoDisplay data={this.state} lever={this.editDropoff} />
+                  ? <EditDropoffInfoBox data={this.state.sdata} />
+                  : <DropoffInfoDisplay name={this.state.name} lever={this.editDropoff} />
               }
 
           </Text>
@@ -72,7 +70,7 @@ export default class DropOffInfoBox extends React.Component {
 }
 
 
-class DropOffInfoDisplay extends React.Component {
+class DropoffInfoDisplay extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -83,7 +81,7 @@ class DropOffInfoDisplay extends React.Component {
         flexDirection: 'row',
       }}>
 
-        <Text style={{fontSize: 16}}> {this.props.data.name} </Text>
+        <Text style={{fontSize: 16}}> {this.props.name} </Text>
         <Button title="Change" onPress={this.props.lever} />
       </View>
     )
@@ -91,15 +89,48 @@ class DropOffInfoDisplay extends React.Component {
 }
 
 
-class EditDropOffInfoBox extends React.Component {
+class EditDropoffInfoBox extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      updated: '',
+      sdata: this.props.data
+    }
+    this.sendDropoffUpdate = this.sendDropoffUpdate.bind(this)
+  }
+
+  sendDropoffUpdate() {
+    const studentId = this.state.sdata.id
+    const body = {
+      'droppedOffByName': this.state.updated,
+    }
+
+    this.setState({ updating: true })
+    updateStudentDropoffInfo(studentId, body)
+    .then(() => {
+      this.setState({ updating: false })
+    })
+  }
+
 
   render() {
+    const sd = this.props.data
+    console.log("EDOIFB props.name: " + sd.name);
+    const updatedDropoffInfo = 'foo man chu'
     return (
       <View style={{
-        flexDirection: 'row',
+        flex: 1,
+        flexDirection: 'row'
       }}>
+        <TextInput
+          style={{ flex: 8, borderWidth: '1px' }}
+          placeholder={sd.name}
+          onChangeText={(text) => this.setState({ updated: text })}
+        />
 
-        <Text style={{fontSize: 16}}> Foo Bar Baz </Text>
+      <Button
+        title="Update" onPress={this.sendDropoffUpdate} />
       </View>
     )
   }

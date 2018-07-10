@@ -72,7 +72,7 @@ export default class Output extends React.Component {
 
   render() {
 
-    console.log("alpha render(), activeScreen is: " + this.activeScreen);
+    //console.log("alpha render(), activeScreen is: " + this.activeScreen);
 
     /*
     return <View style={{h

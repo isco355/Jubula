@@ -20,11 +20,6 @@ export default class FindStudentScreen extends React.Component {
   }
 
 
-  componentDidMount() {
-    console.log("Find Screen CDM()");
-  }
-
-
   findMatches(input) {
     const query = input.text
     if (query === '') {
@@ -56,9 +51,6 @@ export default class FindStudentScreen extends React.Component {
 
 
   render() {
-
-    console.log("Find Screen render()");
-
     return (
       <View style={{
             flex:1,

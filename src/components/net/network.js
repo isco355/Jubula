@@ -1,8 +1,28 @@
-const cubaHost = `http://alsi-parliament.herokuapp.com`
+const Promise = require('bluebird')
+
+const heroku = 'http://alsi-parliament.herokuapp.com'
+const local = 'http://localhost:9292'
+const cubaHost = local
+
 const studentListUrl = `${cubaHost}/studentList`
 const checkInUrl = `${cubaHost}/checkIn`
 
-const Promise = require('bluebird')
+function updateStudentDropoffUrl(studentId) {
+  return `${cubaHost}/student/updateDropoff/${studentId}/`
+}
+
+function npost()
+fetch('https://mywebsite.com/endpoint/', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    firstParam: 'yourValue',
+    secondParam: 'yourOtherValue',
+  }),
+});
 
 export function loadStudentList() {
     console.log("LSL() retrieving students from: " + studentListUrl);
@@ -29,23 +49,26 @@ export function markStudentAsCheckedIn(studentId) {
           resolve()
         })
       })
+}
 
-      /*
+export function updateStudentDropoffInfo(studentId, updatedDropoffData) {
+    console.log(`updating dropoff info for student: ${studentId} info: ${JSON.stringify(updatedDropoffData)}`)
+    const url = updateStudentDropoffUrl(studentId)
+    const payload = `[${JSON.stringify(updatedDropoffData)}]`
+    console.log("USDI url: " + url + " payload: " + payload);
 
-        if (this.state.retrieved) {
-          axios.get(`/resetHavanaState/${this.state.havanaId}/`).then(() => {
-            resolve();
-          });
-        } else {
-          // do nothing
-          resolve();
-        }
-      });
-    }
-
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("MSACI() response: " + json)
+    return new Promise((resolve) => {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Request-Method': 'POST',
+        },
+        body: payload
       })
-      */
+      .then((response) => {
+        console.log("USDI response: " + JSON.stringify(response));
+        resolve()
+      })
+    })
 }

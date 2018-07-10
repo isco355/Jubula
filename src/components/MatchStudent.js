@@ -9,13 +9,14 @@ export default class StudentMatch extends React.Component {
     //console.log("matches type: " + typeof this.props.matches);
     //console.log("matches data: " + JSON.stringify(this.props.matches))
     console.log("StudentMatch students length: " + this.props.students.length)
-    console.log("StudentMatch screenLever: " + this.props.screenLever)
+    //console.log("StudentMatch screenLever: " + this.props.screenLever)
 
     return (
       <div>
         {
           this.props.students.map((student) => {
             return <MatchButton
+              key={student.id}
               id={student.id}
               firstName={student.firstName}
               lastName={student.lastName}
@@ -51,7 +52,7 @@ class MatchButton extends React.Component {
 
 
   render() {
-    console.log("MatchButton render() with names: " + this.firstName + ", " + this.lastName)
+    //console.log("MatchButton render() with names: " + this.firstName + ", " + this.lastName)
     return (
       <View style={{
         borderColor: '#ee0000',
@@ -79,7 +80,7 @@ class MatchButton extends React.Component {
           flex: 1,
           margin: 3,
         }}>
-          <Button title="Check In" onPress={this.release}/>
+        <Button title="Check In" onPress={this.release}/>
         </View>
       </View>
     )

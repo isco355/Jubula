@@ -2,6 +2,7 @@
   "buildId": "85c3a612-a628-476b-aac9-e8ba1b1c4d6b",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "formdata": "^0.10.4",
     "metro": "^0.24.6",
     "react": "16.3.1",
     "react-dom": "16.3.2",
