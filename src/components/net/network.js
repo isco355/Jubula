@@ -2,7 +2,7 @@ const Promise = require('bluebird')
 
 const heroku = 'http://alsi-parliament.herokuapp.com'
 const local = 'http://localhost:9292'
-const cubaHost = local
+const cubaHost = heroku
 
 const studentListUrl = `${cubaHost}/studentList`
 const checkInUrl = `${cubaHost}/checkIn`
@@ -11,18 +11,22 @@ function updateStudentDropoffUrl(studentId) {
   return `${cubaHost}/student/updateDropoff/${studentId}/`
 }
 
-function npost()
-fetch('https://mywebsite.com/endpoint/', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    firstParam: 'yourValue',
-    secondParam: 'yourOtherValue',
-  }),
-});
+  /*
+function npost() {
+  fetch(updateStudentDrop, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      firstParam: 'yourValue',
+      secondParam: 'yourOtherValue',
+    }),
+  });
+}
+*/
+
 
 export function loadStudentList() {
     console.log("LSL() retrieving students from: " + studentListUrl);
