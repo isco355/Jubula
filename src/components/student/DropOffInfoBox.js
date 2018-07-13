@@ -3,7 +3,7 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import { updateStudentDropoffInfo } from '../net/network'
+import { sendDropoffUpdate } from '../util/utils'
 
 
 export default class DropoffInfoBox extends React.Component {
@@ -16,15 +16,14 @@ export default class DropoffInfoBox extends React.Component {
       showConfirmation: false,
     }
 
-
-    this.editDropoff = this.editDropoff.bind(this)
+    this.setEditing = this.setEditing.bind(this)
   }
 
   componentDidMount() {
   }
 
-  editDropoff() {
-    this.setState({ editing: true })
+  setEditing(bool) {
+    this.setState({ editing: bool })
   }
 
 
@@ -41,18 +40,22 @@ export default class DropoffInfoBox extends React.Component {
           marginRight: '1em',
         }}
       >
-          <Text style={{
-            fontSize: 24,
-          }}
-          >
-            Student dropped off by:
-            {"\n"}
+        <Text style={{
+          fontSize: 24,
+        }}
+        >
+          Student dropped off by:
+          {"\n"}
 
-              { this.state.editing
-                  ? <EditDropoffInfoBox data={this.state.sdata} />
-                  : <DropoffInfoDisplay name={this.state.name} lever={this.editDropoff} />
-              }
-
+            { this.state.editing ? (
+              <EditDropoffInfoBox
+                data={this.state.sdata}
+                lever={() => this.setEditing(false)}
+              />
+            ) : (
+              <DropoffInfoDisplay name={this.state.name} lever={() => this.setEditing(true)} />
+              )
+            }
           </Text>
         </View>
 
@@ -116,7 +119,7 @@ class EditDropoffInfoBox extends React.Component {
     }
   }
 
-  sendDropoffUpdate() {
+  markDroppedOff() {
     const studentId = this.state.sdata.id
     const body = {
       droppedOffByName: this.state.droppedOffByName,
@@ -126,13 +129,13 @@ class EditDropoffInfoBox extends React.Component {
     updateStudentDropoffInfo(studentId, body)
     .then(() => {
       this.setState({ updating: false })
+      this.props.lever()
     })
   }
 
 
   render() {
     const sd = this.props.data
-    console.log("EDOIFB props.name: " + sd.name);
     return (
       <View style={{
         flex: 1,
@@ -180,6 +183,4 @@ class EditDropoffInfoBox extends React.Component {
       </View>
     )
   }
-
-
 }

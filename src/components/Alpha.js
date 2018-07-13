@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import { loadStudentList } from './net/network'
+import { loadStudentList } from './util/utils'
 import FindStudentScreen from './FindStudentScreen'
 import StudentInfoScreen from './student/StudentInfoScreen'
 
@@ -29,12 +29,6 @@ export default class Output extends React.Component {
 
     //this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":16,"checkedIn":false,"designatedBus":"Richmond","staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
 
-    this.state = {
-      studentsLoaded: null,
-      activeStudentData: this.sdata,
-      //activeStudentData: null,
-    }
-
     this.refreshStudents = this.refreshStudents.bind(this)
     this.screenLever = this.screenLever.bind(this)
   }
@@ -52,6 +46,7 @@ export default class Output extends React.Component {
         this.setState({ studentsLoaded: json })
     })
   }
+
 
   screenLever(screenReleasingHold, supportingData) {
     console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
@@ -93,7 +88,6 @@ export default class Output extends React.Component {
             { this.activeScreen === 'FindStudentScreen' &&
                 <FindStudentScreen
                   screenLever={this.screenLever}
-                  studentsLoaded={this.state.studentsLoaded}
                   screenWidth={this.width}
                 />
             }

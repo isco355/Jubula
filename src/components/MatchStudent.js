@@ -3,7 +3,6 @@ import { StyleSheet, Text, Button, View } from 'react-native';
 
 
 export default class StudentMatch extends React.Component {
-
   render() {
     //console.log("StudentMatch render(), matches prop: " + this.props.matches)
     //console.log("matches type: " + typeof this.props.matches);

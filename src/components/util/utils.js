@@ -1,5 +1,8 @@
 const Promise = require('bluebird')
 
+///////////////////
+// network
+//
 const heroku = 'http://alsi-parliament.herokuapp.com'
 const local = 'http://localhost:9292'
 //const cubaHost = heroku
@@ -8,6 +11,10 @@ const cubaHost = local
 const studentListUrl = `${cubaHost}/studentList`
 const checkInUrl = `${cubaHost}/checkIn`
 
+
+///////////////////
+// day of week
+//
 let dayOfWeek = 'day not set'
 
 function setDayOfWeek(day) {
@@ -15,6 +22,43 @@ function setDayOfWeek(day) {
   dayOfWeek = day
 }
 
+export function getDayOfWeek() {
+  return dayOfWeek
+}
+
+
+///////////////////
+// student data
+//
+let studentDataStore = []
+
+export function setStudentDataStore(newData) {
+  studentDataStore = newData
+}
+
+export function getStudentDataStore() {
+  return studentDataStore
+}
+
+export function loadStudentList() {
+  console.log("LSL() retrieving students from: " + studentListUrl);
+  return fetch(studentListUrl, {
+    method: 'GET',
+  })
+  .then((response) => response.json())
+  .then((json) => {
+    setDayOfWeek(json.dayOfWeek)
+    const studentData = json.studentData
+    console.log("LSL() retrieved students: " + JSON.stringify(studentData))
+    studentDataStore = studentData
+    return studentData
+  })
+}
+
+
+///////////////////
+// dropoff utilities
+//
 function updateStudentDropoffUrl(studentId) {
   return `${cubaHost}/student/updateDropoff/${studentId}/`
 }
@@ -35,23 +79,6 @@ function npost() {
 }
 */
 
-export function getDayOfWeek() {
-  return dayOfWeek
-}
-
-export function loadStudentList() {
-    console.log("LSL() retrieving students from: " + studentListUrl);
-    return fetch(studentListUrl, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setDayOfWeek(json.dayOfWeek)
-        const studentData = json.studentData
-        console.log("LSL() retrieved students: " + studentData)
-        return studentData
-      })
-}
 
 export function markStudentAsCheckedIn(studentId) {
     console.log("MSACI() checking in student: " + studentId + " to url: " + checkInUrl)
@@ -68,7 +95,7 @@ export function markStudentAsCheckedIn(studentId) {
       })
 }
 
-export function updateStudentDropoffInfo(studentId, updatedDropoffData) {
+export function sendDropoffUpdate(studentId, updatedDropoffData) {
     console.log(`updating dropoff info for student: ${studentId} info: ${JSON.stringify(updatedDropoffData)}`)
     const url = updateStudentDropoffUrl(studentId)
     const payload = `[${JSON.stringify(updatedDropoffData)}]`

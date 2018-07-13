@@ -3,8 +3,8 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import { markStudentAsCheckedIn } from './../net/network'
-import { getDayOfWeek } from './../net/network'
+import { markStudentAsCheckedIn } from './../util/utils'
+import { getDayOfWeek } from './../util/utils'
 
 import StudentNameBox from './StudentNameBox'
 import DropoffInfoBox from './DropoffInfoBox'

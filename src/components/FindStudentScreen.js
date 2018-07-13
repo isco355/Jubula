@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TextInput, ImageBackground, ScrollView } from 'react-native'
 import { utils, RuuiProvider, Tooltip } from 'react-universal-ui'
 
+import { getStudentDataStore } from './util/utils'
 import StudentMatch from './MatchStudent'
 
 
@@ -9,9 +10,11 @@ export default class FindStudentScreen extends React.Component {
   constructor(props) {
     super(props)
 
+    const stus = getStudentDataStore()
+
     this.state = {
       screenWidth: this.props.screenWidth,
-      students: this.props.studentsLoaded,
+      students: stus,
       studentMatch: null,
       searchFieldText: 'Filter by name',
     }
@@ -66,33 +69,27 @@ export default class FindStudentScreen extends React.Component {
             }}
             >
 
-          <ScrollView>
-
-               {
-                this.state.studentMatch
-                  ? <StudentMatch students={this.state.studentMatch} screenLever={this.props.screenLever}/>
+            <ScrollView>
+                  ? <StudentMatch students={this.state.studentMatches} screenLever={this.props.screenLever}/>
                   : <StudentMatch students={this.state.students} screenLever={this.props.screenLever}/>
               }
+            </ScrollView>
+          </View>
 
-          </ScrollView>
+          <View style={{
+            flex: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+          >
 
-            </View>
+            <TextInput
+              style={{ textAlign: 'center', borderWidth: '1px', padding: '2em', margin: '2em' }}
+              placeholder={this.state.searchFieldText}
 
-
-            <View style={{
-              flex: 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}
-            >
-
-              <TextInput
-                style={{ textAlign: 'center', borderWidth: '1px', padding: '2em', margin: '2em' }}
-                placeholder={this.state.searchFieldText}
-
-                onChangeText={(text) => this.findMatches({ text })}
-              />
+              onChangeText={(text) => this.findMatches({ text })}
+            />
 
             </View>
 
