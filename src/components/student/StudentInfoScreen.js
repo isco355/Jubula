@@ -97,6 +97,10 @@ export default class StudentInfoScreen extends React.Component {
                 {"\n"}
                 Checked in: {checkedInDisplay}
               </Text>
+              { checkedInDisplay === 'Yes'
+                  ? <Text>Check In time:{"\n"}{studentData.checkInTime}</Text>
+                  : null
+              }
             </View>
           </View>
 

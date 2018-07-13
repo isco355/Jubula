@@ -50,7 +50,7 @@ export function loadStudentList() {
   .then((json) => {
     setDayOfWeek(json.dayOfWeek)
     const studentData = json.studentData
-    //console.log("LSL() retrieved students: " + JSON.stringify(studentData))
+    console.log("LSL() retrieved students: " + JSON.stringify(studentData))
     setStudentDataStore(studentData)
     return studentData
   })

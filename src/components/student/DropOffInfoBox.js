@@ -179,7 +179,7 @@ class EditDropoffInfoBox extends React.Component {
           </View>
         ) : (
           <Button
-            title="Check In"
+            title="Update"
             onPress={() => this.setConfirmation(true)}
           />
         )

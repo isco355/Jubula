@@ -29,24 +29,20 @@ export default class FindStudentScreen extends React.Component {
       this.setState({ studentMatch: null })
     } else {
       let matches = []
-      console.log("this.state.students: " + JSON.stringify(this.state.students))
-      Object.entries(this.state.students).map((pair) => {
-        const key = pair[0]
-        const data = pair[1]
+      Object.entries(this.state.students).map((record) => {
+        const data = record[1]
         const firstName = data.firstName
         const lastName = data.lastName
-        console.log("key: " + key);
-        console.log("data:" + JSON.stringify(data));
         const lc = query.toLowerCase()
         if (
           firstName.toLowerCase().startsWith(lc) ||
           lastName.toLowerCase().startsWith(lc)
         ) {
-          matches.push(pair)
+          matches.push(data)
         }
       })
-      console.log("findMatches: " + matches);
       if (matches.length > 0) {
+        console.log("findMatches found: " + matches);
         this.setState({ studentMatch: matches })
       }
     }
@@ -70,8 +66,8 @@ export default class FindStudentScreen extends React.Component {
             >
 
             <ScrollView>
-              { this.studentMatch
-                  ? <StudentMatch students={this.state.studentMatches} screenLever={this.props.screenLever}/>
+              { this.state.studentMatch
+                  ? <StudentMatch students={this.state.studentMatch} screenLever={this.props.screenLever}/>
                   : <StudentMatch students={this.state.students} screenLever={this.props.screenLever}/>
               }
             </ScrollView>
