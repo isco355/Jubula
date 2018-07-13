@@ -33,7 +33,7 @@ export function getDayOfWeek() {
 let studentDataStore = []
 
 export function setStudentDataStore(newData) {
-  console.log("setStudentDataStore setting data: " + JSON.stringify(newData))
+  //console.log("setStudentDataStore setting data: " + JSON.stringify(newData))
   studentDataStore = newData
 }
 
@@ -50,14 +50,18 @@ export function loadStudentList() {
   .then((json) => {
     setDayOfWeek(json.dayOfWeek)
     const studentData = json.studentData
-    console.log("LSL() retrieved students: " + JSON.stringify(studentData))
+    //console.log("LSL() retrieved students: " + JSON.stringify(studentData))
     setStudentDataStore(studentData)
     return studentData
   })
 }
 
 export function getStudentRecord(studentId) {
-  return getStudentDataStore()[studentId]
+  console.log("getStudentRecord: for studentId: " + studentId)
+  matchedRecord = getStudentDataStore().filter((record) => {
+    return record.id === studentId
+  })
+  return matchedRecord[0]
 }
 
 
@@ -101,34 +105,34 @@ export function markStudentAsCheckedIn(studentId) {
 }
 
 
-function setStudentLocallyAsCheckedIn(studentId, updateData) {
-  const droppedOffByName = updateData.droppedOffByName
-  let store = getStudentDataStore()
-  let update = store[studentId]
-  console.log("sslaci() record pre: " + JSON.stringify(update))
-  update.checkedIn = true
-  update.droppedOffByName = droppedOffByName
-  console.log("sslaci() record post: " + JSON.stringify(update))
-  store[studentId] = update
-  setStudentDataStore(store)
+function setStudentLocallyAsCheckedIn(studentId, droppedOffByName) {
+  updated = getStudentDataStore().map((record) => {
+    if (record.id === studentId) {
+      record.checkedIn = true
+      record.droppedOffByName = droppedOffByName
+    }
+    return record
+  })
+  console.log("sslaci updated store: " + JSON.stringify(updated))
+  setStudentDataStore(updated)
 }
 
 
 export function sendDropoffUpdate(studentId, droppedOffByName) {
     console.log(`updating dropoff info for student: ${studentId} info: ${JSON.stringify(droppedOffByName)}`)
+
     setStudentLocallyAsCheckedIn(studentId, droppedOffByName)
+
     const url = updateStudentDropoffUrl(studentId)
-    const payload = `[${JSON.stringify(droppedOffByName)}]`
-    console.log("USDI url: " + url + " payload: " + payload);
+    console.log("USDI url: " + url + " for name: " + droppedOffByName);
 
     return new Promise((resolve) => {
       fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Request-Method': 'POST',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: payload
+        body: `droppedOffByName=${droppedOffByName}`
       })
       .then((response) => {
         console.log("USDI response: " + JSON.stringify(response));

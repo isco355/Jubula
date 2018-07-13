@@ -129,12 +129,8 @@ class EditDropoffInfoBox extends React.Component {
   }
 
   checkIn() {
-    const body = {
-      droppedOffByName: this.state.droppedOffByName,
-    }
-
     this.setState({ updating: true })
-    sendDropoffUpdate(this.studentId, body)
+    sendDropoffUpdate(this.studentId, this.state.droppedOffByName)
     .then(() => {
       this.setState({ updating: false })
       this.props.exit()

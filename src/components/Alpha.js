@@ -62,6 +62,7 @@ export default class Output extends React.Component {
       this.setState({ activeStudentId: studentId })
     }
     if (screenReleasingHold === 'StudentInfoScreen') {
+      this.setState({ activeStudentId: null })
       this.refreshStudents()
     }
   }
@@ -69,7 +70,7 @@ export default class Output extends React.Component {
 
   render() {
 
-    //console.log("alpha render(), activeScreen is: " + this.activeScreen);
+    console.log("alpha render(), activeStudentId is: " + this.state.activeStudentId);
 
     /*
     return <View style={{h
@@ -80,6 +81,8 @@ export default class Output extends React.Component {
          }}
       >
     */
+
+
 
     return (
 

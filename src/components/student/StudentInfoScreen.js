@@ -32,7 +32,6 @@ export default class StudentInfoScreen extends React.Component {
   }
 
   refresh() {
-    console.log("SIS refresh(t");
     this.forceUpdate()
   }
 
@@ -43,7 +42,6 @@ export default class StudentInfoScreen extends React.Component {
   render() {
 
     const studentData = getStudentRecord(this.studentId)
-    console.log("SIS render studentData: " + studentData);
 
     let checkedInDisplay = 'No'
     if (studentData.checkedIn) {
