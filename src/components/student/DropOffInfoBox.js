@@ -19,9 +19,6 @@ export default class DropoffInfoBox extends React.Component {
     this.setEditing = this.setEditing.bind(this)
   }
 
-  componentDidMount() {
-  }
-
   setEditing(bool) {
     this.setState({ editing: bool })
   }
@@ -50,10 +47,10 @@ export default class DropoffInfoBox extends React.Component {
             { this.state.editing ? (
               <EditDropoffInfoBox
                 data={this.state.sdata}
-                lever={() => this.setEditing(false)}
+                exit={() => this.setEditing(false)}
               />
             ) : (
-              <DropoffInfoDisplay name={this.state.name} lever={() => this.setEditing(true)} />
+              <DropoffInfoDisplay name={this.state.name} finished={() => this.setEditing(true)} />
               )
             }
           </Text>
@@ -85,7 +82,7 @@ class DropoffInfoDisplay extends React.Component {
       }}>
 
         <Text style={{fontSize: 16}}> {this.props.name} </Text>
-        <Button title="Change" onPress={this.props.lever} />
+        <Button title="Change" onPress={this.props.finished} />
       </View>
     )
   }
@@ -103,7 +100,7 @@ class EditDropoffInfoBox extends React.Component {
     }
     this.updateDropoffName = this.updateDropoffName.bind(this)
     this.setConfirmation = this.setConfirmation.bind(this)
-    this.sendDropoffUpdate = this.sendDropoffUpdate.bind(this)
+    this.checkIn = this.checkIn.bind(this)
   }
 
   updateDropoffName(event) {
@@ -119,17 +116,17 @@ class EditDropoffInfoBox extends React.Component {
     }
   }
 
-  markDroppedOff() {
+  checkIn() {
     const studentId = this.state.sdata.id
     const body = {
       droppedOffByName: this.state.droppedOffByName,
     }
 
     this.setState({ updating: true })
-    updateStudentDropoffInfo(studentId, body)
+    sendDropoffUpdate(studentId, body)
     .then(() => {
       this.setState({ updating: false })
-      this.props.lever()
+      this.props.exit()
     })
   }
 
@@ -169,7 +166,7 @@ class EditDropoffInfoBox extends React.Component {
               />
               <Button
                 title="Check In"
-                onPress={this.sendDropoffUpdate}
+                onPress={this.checkIn}
               />
             </View>
           </View>

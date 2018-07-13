@@ -70,6 +70,7 @@ export default class FindStudentScreen extends React.Component {
             >
 
             <ScrollView>
+              { this.studentMatch
                   ? <StudentMatch students={this.state.studentMatches} screenLever={this.props.screenLever}/>
                   : <StudentMatch students={this.state.students} screenLever={this.props.screenLever}/>
               }
