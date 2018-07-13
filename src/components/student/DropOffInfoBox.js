@@ -94,17 +94,17 @@ class EditDropoffInfoBox extends React.Component {
     super(props)
 
     this.state = {
-      checkedInBy: '',
+      droppedOffByName: '',
       sdata: this.props.data,
       confirmBox: false,
     }
-    this.updateCheckedInName = this.updateCheckedInName.bind(this)
+    this.updateDropoffName = this.updateDropoffName.bind(this)
     this.setConfirmation = this.setConfirmation.bind(this)
     this.sendDropoffUpdate = this.sendDropoffUpdate.bind(this)
   }
 
-  updateCheckedInName(event) {
-    this.setState({ checkedInBy: event.text })
+  updateDropoffName(event) {
+    this.setState({ droppedOffByName: event.text })
   }
 
   setConfirmation(bool) {
@@ -119,7 +119,7 @@ class EditDropoffInfoBox extends React.Component {
   sendDropoffUpdate() {
     const studentId = this.state.sdata.id
     const body = {
-      droppedOffByName: this.state.checkedInName,
+      droppedOffByName: this.state.droppedOffByName,
     }
 
     this.setState({ updating: true })
@@ -145,16 +145,16 @@ class EditDropoffInfoBox extends React.Component {
             fontSize: 24,
           }}
 
-          placeholder={this.state.checkedInBy}
-          onChangeText={(text) => this.updateCheckedInName({ text })}
+          placeholder={this.state.droppedoffBy}
+          onChangeText={(text) => this.updateDropoffName({ text })}
         />
 
       { this.state.confirmBox ? (
           <View>
             <Text>
-              Check in with:
+              Check in with
               {"\n"}
-              {this.state.checkedInBy} ?
+              {this.state.droppedOffByName} ?
             </Text>
             <View style={{
               flexDirection: 'row',
@@ -166,7 +166,7 @@ class EditDropoffInfoBox extends React.Component {
               />
               <Button
                 title="Check In"
-                onPress={this.sendCheckInUpdate}
+                onPress={this.sendDropoffUpdate}
               />
             </View>
           </View>
