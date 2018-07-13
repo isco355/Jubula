@@ -12,8 +12,8 @@ export default class DropoffInfoBox extends React.Component {
 
     this.state = {
       sdata: this.props.studentData,
-      name: this.props.studentData.droppedOffByName,
-      editing: false,
+      editing: true,
+      showConfirmation: false,
     }
 
 
@@ -45,7 +45,7 @@ export default class DropoffInfoBox extends React.Component {
             fontSize: 24,
           }}
           >
-            Expecting drop off by:
+            Student dropped off by:
             {"\n"}
 
               { this.state.editing
@@ -94,16 +94,32 @@ class EditDropoffInfoBox extends React.Component {
     super(props)
 
     this.state = {
-      updated: '',
-      sdata: this.props.data
+      checkedInBy: '',
+      sdata: this.props.data,
+      confirmBox: false,
     }
+    this.updateCheckedInName = this.updateCheckedInName.bind(this)
+    this.setConfirmation = this.setConfirmation.bind(this)
     this.sendDropoffUpdate = this.sendDropoffUpdate.bind(this)
+  }
+
+  updateCheckedInName(event) {
+    this.setState({ checkedInBy: event.text })
+  }
+
+  setConfirmation(bool) {
+    console.log("setConfirmation(): " + bool);
+    if (bool) {
+      this.setState({ confirmBox: true })
+    } else {
+      this.setState({ confirmBox: false })
+    }
   }
 
   sendDropoffUpdate() {
     const studentId = this.state.sdata.id
     const body = {
-      'droppedOffByName': this.state.updated,
+      droppedOffByName: this.state.checkedInName,
     }
 
     this.setState({ updating: true })
@@ -117,20 +133,50 @@ class EditDropoffInfoBox extends React.Component {
   render() {
     const sd = this.props.data
     console.log("EDOIFB props.name: " + sd.name);
-    const updatedDropoffInfo = 'foo man chu'
     return (
       <View style={{
         flex: 1,
-        flexDirection: 'row'
+        alignItems: 'center',
       }}>
         <TextInput
-          style={{ flex: 8, borderWidth: '1px' }}
-          placeholder={sd.name}
-          onChangeText={(text) => this.setState({ updated: text })}
+          style={{
+            flex: 6,
+            borderWidth: '1px',
+            fontSize: 24,
+          }}
+
+          placeholder={this.state.checkedInBy}
+          onChangeText={(text) => this.updateCheckedInName({ text })}
         />
 
-      <Button
-        title="Update" onPress={this.sendDropoffUpdate} />
+      { this.state.confirmBox ? (
+          <View>
+            <Text>
+              Check in with:
+              {"\n"}
+              {this.state.checkedInBy} ?
+            </Text>
+            <View style={{
+              flexDirection: 'row',
+            }}
+            >
+              <Button
+                title="Back"
+                onPress={() => this.setConfirmation(false)}
+              />
+              <Button
+                title="Check In"
+                onPress={this.sendCheckInUpdate}
+              />
+            </View>
+          </View>
+        ) : (
+          <Button
+            title="Check In"
+            onPress={() => this.setConfirmation(true)}
+          />
+        )
+      }
       </View>
     )
   }

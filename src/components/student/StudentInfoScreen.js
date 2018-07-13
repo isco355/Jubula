@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import { markStudentAsCheckedIn } from './../net/network'
+import { getDayOfWeek } from './../net/network'
 
 import StudentNameBox from './StudentNameBox'
 import DropoffInfoBox from './DropoffInfoBox'
@@ -63,38 +64,33 @@ export default class StudentInfoScreen extends React.Component {
             marginTop: '5em',
             marginLeft: '1em',
             marginRight: '16em',
-            alignContent: 'flex-start',
-            alignItems: 'flex-start',
           }}
           >
-
-          <Button title="Back" onPress={this.release}/>
+            <View style={{
+              flexDirection: 'row',
+            }}
+            >
+              <Button title="Back" onPress={this.release}/>
+              <Text style={{
+                fontSize: 30,
+                paddingLeft: '5em',
+              }}
+              >{getDayOfWeek()}</Text>
+            </View>
         </View>
 
-        <View>
-
-        <StudentNameBox studentData={this.props.studentData}/>
-        <DropoffInfoBox studentData={this.props.studentData}/>
+        <View style={{
+          marginTop: '1em',
+        }}
+        >
+          <StudentNameBox studentData={this.props.studentData}/>
+          <DropoffInfoBox studentData={this.props.studentData}/>
 
           {
             this.state.checkInRequestPending
-                  ? <MDSpinner />
-                  : null
+              ? <MDSpinner />
+              : null
           }
-
-        <View style={{
-            marginLeft: '3em',
-            marginRight: '3em',
-            alignItems: 'flex-start',
-          }}
-          >
-          {
-            this.props.studentData.checkedIn
-              ? <Text>Checked In!</Text>
-              : <Button title="Check In" onPress={this.checkIn}/>
-          }
-
-       </View>
        </View>
      </View>
     )

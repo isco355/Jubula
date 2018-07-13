@@ -38,26 +38,22 @@ export default class StudentNameBox extends React.Component {
 
     return (
       <View>
-      <View style={{
-        flex: 5,
-        marginTop: '4em',
-        marginLeft: '2em',
-        marginRight: '1em',
-      }}
-    >
-      <Text style={{
-        fontSize: 24,
-      }}
-      >
-        Name: {sd.firstName} {sd.lastName}
-        {"\n"}
-        Age: {sd.age}
-        {"\n"}
-        Assigned to bus: {sd.bus}
-        {"\n"}
-        Checked in: {checkedInDisplay}
-      </Text>
-      </View>
+        <View style={{
+          flex: 5,
+          marginTop: '6em',
+          marginLeft: '2em',
+          marginRight: '1em',
+        }}
+        >
+          <Text style={{
+            fontSize: 24,
+          }}
+          >
+            Name: {sd.firstName} {sd.lastName}
+            {"\n"}
+            Checked in: {checkedInDisplay}
+          </Text>
+        </View>
       </View>
     )
   }

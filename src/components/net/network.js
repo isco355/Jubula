@@ -2,16 +2,24 @@ const Promise = require('bluebird')
 
 const heroku = 'http://alsi-parliament.herokuapp.com'
 const local = 'http://localhost:9292'
-const cubaHost = heroku
+//const cubaHost = heroku
+const cubaHost = local
 
 const studentListUrl = `${cubaHost}/studentList`
 const checkInUrl = `${cubaHost}/checkIn`
+
+let dayOfWeek = 'day not set'
+
+function setDayOfWeek(day) {
+  console.log("day of week set to: " + day)
+  dayOfWeek = day
+}
 
 function updateStudentDropoffUrl(studentId) {
   return `${cubaHost}/student/updateDropoff/${studentId}/`
 }
 
-  /*
+/*
 function npost() {
   fetch(updateStudentDrop, {
     method: 'POST',
@@ -27,6 +35,9 @@ function npost() {
 }
 */
 
+export function getDayOfWeek() {
+  return dayOfWeek
+}
 
 export function loadStudentList() {
     console.log("LSL() retrieving students from: " + studentListUrl);
@@ -35,8 +46,10 @@ export function loadStudentList() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("LSL() retrieved students: " + JSON.stringify(json))
-        return json
+        setDayOfWeek(json.dayOfWeek)
+        const studentData = json.studentData
+        console.log("LSL() retrieved students: " + studentData)
+        return studentData
       })
 }
 
