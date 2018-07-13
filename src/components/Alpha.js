@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import { loadStudentList } from './util/utils'
+import { getStudentDataStore } from './util/utils'
 import FindStudentScreen from './FindStudentScreen'
 import StudentInfoScreen from './student/StudentInfoScreen'
 
@@ -14,6 +15,10 @@ export default class Output extends React.Component {
     this.resolutions = {
       iphonex: [ 2436, 1125 ],
       iphone6: [ 1334, 750 ],
+    }
+
+    this.state = {
+      activeStudentId: null
     }
 
     this.scale = 3
@@ -41,23 +46,20 @@ export default class Output extends React.Component {
 
   refreshStudents() {
     loadStudentList()
-      .then((json) => {
+      .then(() => {
         this.activeScreen = 'FindStudentScreen'
-        this.setState({ studentsLoaded: json })
+        this.forceUpdate()
     })
   }
 
 
   screenLever(screenReleasingHold, supportingData) {
     console.log("Alpha screenLever() from " + screenReleasingHold + " with supportingData: " + JSON.stringify(supportingData));
+
     if (screenReleasingHold === 'StudentMatch') {
-      const studentDataArr = this.state.studentsLoaded.filter((record) => {
-        return record.id === supportingData.studentParliamentId
-      })
-      const studentData = studentDataArr[0]
+      const studentId = supportingData
       this.activeScreen = 'StudentInfoScreen'
-      console.log("screenLever: " + JSON.stringify(studentData));
-      this.setState({ activeStudentData: studentData })
+      this.setState({ activeStudentId: studentId })
     }
     if (screenReleasingHold === 'StudentInfoScreen') {
       this.refreshStudents()
@@ -96,7 +98,7 @@ export default class Output extends React.Component {
             { this.activeScreen === 'StudentInfoScreen' &&
                 <StudentInfoScreen
                   screenLever={this.screenLever}
-                  studentData={this.state.activeStudentData}
+                  studentId={this.state.activeStudentId}
               />
             }
 

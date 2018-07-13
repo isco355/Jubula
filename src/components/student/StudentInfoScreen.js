@@ -3,8 +3,9 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import { markStudentAsCheckedIn } from './../util/utils'
-import { getDayOfWeek } from './../util/utils'
+import { markStudentAsCheckedIn } from '../util/utils'
+import { getDayOfWeek } from '../util/utils'
+import { getStudentRecord } from '../util/utils'
 
 import StudentNameBox from './StudentNameBox'
 import DropoffInfoBox from './DropoffInfoBox'
@@ -19,7 +20,7 @@ export default class StudentInfoScreen extends React.Component {
       checkInComplete: false,
     }
 
-    this.studentId = this.props.studentData.id
+    this.studentId = this.props.studentId
 
     this.release = this.release.bind(this)
     this.checkIn = this.checkIn.bind(this)
@@ -27,7 +28,7 @@ export default class StudentInfoScreen extends React.Component {
 
 
   componentDidMount() {
-    const sd = this.props.studentData;
+    const sd = getStudentRecord(this.studentId)
     console.log("StudentInfoScreen DidMount() with data: " + JSON.stringify(sd));
     //console.log("StudentInfoScreen screenLever: " + this.props.screenLever);
   }
@@ -83,8 +84,8 @@ export default class StudentInfoScreen extends React.Component {
           marginTop: '1em',
         }}
         >
-          <StudentNameBox studentData={this.props.studentData}/>
-          <DropoffInfoBox studentData={this.props.studentData}/>
+          <StudentNameBox studentId={this.studentId}/>
+          <DropoffInfoBox studentId={this.studentId}/>
 
           {
             this.state.checkInRequestPending

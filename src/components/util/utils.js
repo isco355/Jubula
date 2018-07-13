@@ -33,6 +33,7 @@ export function getDayOfWeek() {
 let studentDataStore = []
 
 export function setStudentDataStore(newData) {
+  console.log("setStudentDataStore setting data: " + newData)
   studentDataStore = newData
 }
 
@@ -50,9 +51,13 @@ export function loadStudentList() {
     setDayOfWeek(json.dayOfWeek)
     const studentData = json.studentData
     console.log("LSL() retrieved students: " + JSON.stringify(studentData))
-    studentDataStore = studentData
+    setStudentDataStore(studentData)
     return studentData
   })
+}
+
+export function getStudentRecord(studentId) {
+  return getStudentDataStore()[studentId]
 }
 
 

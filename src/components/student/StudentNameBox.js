@@ -3,17 +3,12 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
+import { getStudentRecord } from '../util/utils'
+
 
 export default class StudentNameBox extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    }
-
-  }
-
   componentDidMount() {
-    const sd = this.props.studentData;
+    const sd = getStudentRecord(this.props.studentId)
     console.log("StudentNameBox DidMount() with data: " + JSON.stringify(sd));
     this.setState({
       id: sd.id,
@@ -27,7 +22,7 @@ export default class StudentNameBox extends React.Component {
   }
 
   render() {
-    const sd = this.props.studentData
+    const sd = getStudentRecord(this.props.studentId)
 
     console.log("SNB render() checked in: " + sd.checkedIn);
 

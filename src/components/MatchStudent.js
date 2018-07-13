@@ -35,18 +35,15 @@ class MatchButton extends React.Component {
     super(props)
     this.firstName = this.props.firstName
     this.lastName = this.props.lastName
-    this.studentParliamentId = this.props.id
+    this.studentId = this.props.id
 
     this.release = this.release.bind(this)
   }
 
 
   release() {
-    const studentData = {
-      studentParliamentId: this.studentParliamentId,
-    }
-    console.log("MatchStudent release() studentData: ");
-    this.props.screenLever('StudentMatch', studentData)
+    console.log("MatchStudent release() studentId: " + this.studentId);
+    this.props.screenLever('StudentMatch', this.studentId)
   }
 
 
