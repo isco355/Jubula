@@ -33,7 +33,7 @@ export function getDayOfWeek() {
 let studentDataStore = []
 
 export function setStudentDataStore(newData) {
-  console.log("setStudentDataStore setting data: " + newData)
+  console.log("setStudentDataStore setting data: " + JSON.stringify(newData))
   studentDataStore = newData
 }
 
@@ -100,10 +100,25 @@ export function markStudentAsCheckedIn(studentId) {
       })
 }
 
-export function sendDropoffUpdate(studentId, updatedDropoffData) {
-    console.log(`updating dropoff info for student: ${studentId} info: ${JSON.stringify(updatedDropoffData)}`)
+
+function setStudentLocallyAsCheckedIn(studentId, updateData) {
+  const droppedOffByName = updateData.droppedOffByName
+  let store = getStudentDataStore()
+  let update = store[studentId]
+  console.log("sslaci() record pre: " + JSON.stringify(update))
+  update.checkedIn = true
+  update.droppedOffByName = droppedOffByName
+  console.log("sslaci() record post: " + JSON.stringify(update))
+  store[studentId] = update
+  setStudentDataStore(store)
+}
+
+
+export function sendDropoffUpdate(studentId, droppedOffByName) {
+    console.log(`updating dropoff info for student: ${studentId} info: ${JSON.stringify(droppedOffByName)}`)
+    setStudentLocallyAsCheckedIn(studentId, droppedOffByName)
     const url = updateStudentDropoffUrl(studentId)
-    const payload = `[${JSON.stringify(updatedDropoffData)}]`
+    const payload = `[${JSON.stringify(droppedOffByName)}]`
     console.log("USDI url: " + url + " payload: " + payload);
 
     return new Promise((resolve) => {

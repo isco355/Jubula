@@ -3,6 +3,7 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
+import { getStudentRecord } from '../util/utils'
 import { sendDropoffUpdate } from '../util/utils'
 
 
@@ -10,24 +11,33 @@ export default class DropoffInfoBox extends React.Component {
   constructor(props) {
     super(props)
 
+    this.studentId = this.props.studentId
+
     this.state = {
-      sdata: this.props.studentData,
+      studentData: getStudentRecord(this.studentId),
       editing: true,
       showConfirmation: false,
     }
 
     this.setEditing = this.setEditing.bind(this)
+    this.finishedEditing = this.finishedEditing.bind(this)
   }
 
   setEditing(bool) {
     this.setState({ editing: bool })
   }
 
+  finishedEditing() {
+    this.setEditing(false)
+    this.props.lever()
+  }
+
 
   render() {
 
-    console.log("this.state.name: " + this.state.name);
-
+    const droppedOffByName = this.state.studentData.droppedOffByName
+    console.log("dobn:" + JSON.stringify(this.state.studentData))
+    console.log("dobn:" + droppedOffByName)
     return (
       <View>
         <View style={{
@@ -42,12 +52,13 @@ export default class DropoffInfoBox extends React.Component {
         }}
         >
           Student dropped off by:
+          { this.state.studentData.droppedOffByName }
           {"\n"}
 
             { this.state.editing ? (
               <EditDropoffInfoBox
-                data={this.state.sdata}
-                exit={() => this.setEditing(false)}
+                studentId={this.studentId}
+                exit={this.finishedEditing}
               />
             ) : (
               <DropoffInfoDisplay name={this.state.name} finished={() => this.setEditing(true)} />
@@ -93,9 +104,10 @@ class EditDropoffInfoBox extends React.Component {
   constructor(props) {
     super(props)
 
+    this.studentId = this.props.studentId
+
     this.state = {
       droppedOffByName: '',
-      sdata: this.props.data,
       confirmBox: false,
     }
     this.updateDropoffName = this.updateDropoffName.bind(this)
@@ -117,13 +129,12 @@ class EditDropoffInfoBox extends React.Component {
   }
 
   checkIn() {
-    const studentId = this.state.sdata.id
     const body = {
       droppedOffByName: this.state.droppedOffByName,
     }
 
     this.setState({ updating: true })
-    sendDropoffUpdate(studentId, body)
+    sendDropoffUpdate(this.studentId, body)
     .then(() => {
       this.setState({ updating: false })
       this.props.exit()
@@ -132,7 +143,7 @@ class EditDropoffInfoBox extends React.Component {
 
 
   render() {
-    const sd = this.props.data
+
     return (
       <View style={{
         flex: 1,

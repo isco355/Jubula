@@ -3,11 +3,9 @@ import MDSpinner from "react-md-spinner";
 import { View, Text, StyleSheet, TextInput, ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
-import { markStudentAsCheckedIn } from '../util/utils'
 import { getDayOfWeek } from '../util/utils'
 import { getStudentRecord } from '../util/utils'
 
-import StudentNameBox from './StudentNameBox'
 import DropoffInfoBox from './DropoffInfoBox'
 
 
@@ -23,7 +21,7 @@ export default class StudentInfoScreen extends React.Component {
     this.studentId = this.props.studentId
 
     this.release = this.release.bind(this)
-    this.checkIn = this.checkIn.bind(this)
+    this.refresh = this.refresh.bind(this)
   }
 
 
@@ -33,15 +31,9 @@ export default class StudentInfoScreen extends React.Component {
     //console.log("StudentInfoScreen screenLever: " + this.props.screenLever);
   }
 
-  checkIn() {
-    this.setState({ checkInRequestPending: true })
-    markStudentAsCheckedIn(this.studentId)
-      .then((response) => {
-        this.setState({
-          checkInRequestPending: false,
-          checkInComplete: true,
-        })
-    })
+  refresh() {
+    console.log("SIS refresh(t");
+    this.forceUpdate()
   }
 
   release() {
@@ -50,7 +42,14 @@ export default class StudentInfoScreen extends React.Component {
 
   render() {
 
-    console.log("checkInComplete: " + this.state.checkInComplete);
+    const studentData = getStudentRecord(this.studentId)
+    console.log("SIS render studentData: " + studentData);
+
+    let checkedInDisplay = 'No'
+    if (studentData.checkedIn) {
+      checkedInDisplay = 'Yes'
+    }
+    //console.log("checkInComplete: " + this.state.checkInComplete);
 
     return (
       <View style={{
@@ -84,8 +83,30 @@ export default class StudentInfoScreen extends React.Component {
           marginTop: '1em',
         }}
         >
-          <StudentNameBox studentId={this.studentId}/>
-          <DropoffInfoBox studentId={this.studentId}/>
+          <View>
+            <View style={{
+              flex: 5,
+              marginTop: '6em',
+              marginLeft: '2em',
+              marginRight: '1em',
+            }}
+            >
+              <Text style={{
+                fontSize: 24,
+              }}
+              >
+                Name: {studentData.firstName} {studentData.lastName}
+                {"\n"}
+                Checked in: {checkedInDisplay}
+              </Text>
+            </View>
+          </View>
+
+
+          <DropoffInfoBox
+            studentId={this.studentId}
+            lever={this.refresh}
+          />
 
           {
             this.state.checkInRequestPending
