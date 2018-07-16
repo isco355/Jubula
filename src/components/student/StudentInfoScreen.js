@@ -5,6 +5,7 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import { getDayOfWeek } from '../util/utils'
 import { getStudentRecord } from '../util/utils'
+import { sendClearDropoff } from '../util/utils'
 
 import DropoffInfoBox from './DropoffInfoBox'
 
@@ -22,6 +23,8 @@ export default class StudentInfoScreen extends React.Component {
 
     this.release = this.release.bind(this)
     this.refresh = this.refresh.bind(this)
+    this.clearDropoff = this.clearDropoff.bind(this)
+    this.getDropoffTimeForDay = this.getDropoffTimeForDay.bind(this)
   }
 
 
@@ -39,12 +42,50 @@ export default class StudentInfoScreen extends React.Component {
     this.props.screenLever('StudentInfoScreen', null)
   }
 
+  getDropoffTimeForDay(studentData) {
+    let output = null
+    switch ( getDayOfWeek() ) {
+    case 'sun':
+        output = studentData.sunDropoffTime;
+        break;
+    case 'mon':
+        output = studentData.monDropoffTime
+        break
+    case 'tue':
+        output = studentData.tueDropoffTime
+        break
+    case 'wed':
+        output = studentData.wedDropoffTime
+        break
+    case 'thu':
+        output = studentData.thuDropoffTime
+        break
+    case 'fri':
+        output = studentData.friDropoffTime
+        break
+    case 'sat':
+        output = studentData.satDropoffTime;
+        break;
+      default:
+        output = null
+    }
+    return output
+  }
+
+  clearDropoff(studentData) {
+    // TODO: fix this studentData.studentData silliness
+    console.log("clearDropoff() with studentData: " + JSON.stringify(studentData))
+    sendClearDropoff(studentData.studentData.id)
+  }
+
+
   render() {
 
     const studentData = getStudentRecord(this.studentId)
+    const dropoffTime = this.getDropoffTimeForDay(studentData)
 
     let checkedInDisplay = 'No'
-    if (studentData.checkedIn) {
+    if (dropoffTime) {
       checkedInDisplay = 'Yes'
     }
     //console.log("checkInComplete: " + this.state.checkInComplete);
@@ -59,7 +100,7 @@ export default class StudentInfoScreen extends React.Component {
       >
 
         <View style={{
-            marginTop: '5em',
+            marginTop: '18em',
             marginLeft: '1em',
             marginRight: '16em',
           }}
@@ -97,9 +138,14 @@ export default class StudentInfoScreen extends React.Component {
                 {"\n"}
                 Checked in: {checkedInDisplay}
               </Text>
-              { checkedInDisplay === 'Yes'
-                  ? <Text>Check In time:{"\n"}{studentData.checkInTime}</Text>
-                  : null
+              { checkedInDisplay ? (
+                <View>
+                  <Text>Check In time:{"\n"}{dropoffTime}</Text>
+                  <Button title="Clear" onPress={() => this.clearDropoff({ studentData })} />
+                </View>
+                ) : (
+                  null
+                )
               }
             </View>
           </View>

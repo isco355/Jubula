@@ -7,7 +7,7 @@ export default class StudentMatch extends React.Component {
     //console.log("StudentMatch render(), matches prop: " + this.props.matches)
     //console.log("matches type: " + typeof this.props.matches);
     //console.log("matches data: " + JSON.stringify(this.props.matches))
-    console.log("StudentMatch students length: " + this.props.students.length)
+    //console.log("StudentMatch students length: " + this.props.students.length)
     //console.log("StudentMatch screenLever: " + this.props.screenLever)
 
     return (

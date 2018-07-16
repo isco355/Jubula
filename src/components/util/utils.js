@@ -10,6 +10,7 @@ const cubaHost = local
 
 const studentListUrl = `${cubaHost}/studentList`
 const checkInUrl = `${cubaHost}/checkIn`
+const clearDropoffUrlPrefix = `${cubaHost}/clearCheckIn`
 
 
 ///////////////////
@@ -32,8 +33,16 @@ export function getDayOfWeek() {
 //
 let studentDataStore = []
 
+function sortStudentsAlphaFirstName(unsorted) {
+  const sorted = unsorted.sort((ra, rb) => {
+    return ra.firstName.toLowerCase().localeCompare(rb.firstName.toLowerCase())
+  })
+  //console.log("SSAFN: " + JSON.stringify(sorted))
+  return sorted
+}
+
 export function setStudentDataStore(newData) {
-  //console.log("setStudentDataStore setting data: " + JSON.stringify(newData))
+  // newData is an array...
   studentDataStore = newData
 }
 
@@ -41,19 +50,36 @@ export function getStudentDataStore() {
   return studentDataStore
 }
 
+export function setIndividualStudentRecord(studentData) {
+  let updated = []
+  const original = getStudentDataStore()
+  console.log("SISR() studentData: " + JSON.stringify(studentData))
+  original.map((record) => {
+    if ( record.id === studentData.id ) {
+      updated.push(studentData)
+    } else {
+      updated.push(record)
+    }
+  })
+  console.log("SISR() updated records: " + JSON.stringify(updated))
+  setStudentDataStore(updated)
+}
+
 export function loadStudentList() {
   console.log("LSL() retrieving students from: " + studentListUrl);
   return fetch(studentListUrl, {
     method: 'GET',
   })
-  .then((response) => response.json())
-  .then((json) => {
-    setDayOfWeek(json.dayOfWeek)
-    const studentData = json.studentData
-    console.log("LSL() retrieved students: " + JSON.stringify(studentData))
-    setStudentDataStore(studentData)
-    return studentData
-  })
+    .then((response) => response.json())
+    .then((json) => {
+      setDayOfWeek(json.dayOfWeek)
+      const studentData = json.studentData
+      //console.log("LSL() retrieved students: " + JSON.stringify(studentData))
+      const sorted = sortStudentsAlphaFirstName(studentData)
+
+      setStudentDataStore(sorted)
+      return studentData
+    })
 }
 
 export function getStudentRecord(studentId) {
@@ -89,22 +115,6 @@ function npost() {
 */
 
 
-export function markStudentAsCheckedIn(studentId) {
-    console.log("MSACI() checking in student: " + studentId + " to url: " + checkInUrl)
-    const url = `${checkInUrl}/${studentId}`
-
-    return new Promise((resolve) => {
-      fetch(url, {
-        method: 'GET',
-      })
-        .then((response) => {
-          console.log("MSACI() response");
-          resolve()
-        })
-      })
-}
-
-
 function setStudentLocallyAsCheckedIn(studentId, droppedOffByName) {
   updated = getStudentDataStore().map((record) => {
     if (record.id === studentId) {
@@ -138,5 +148,19 @@ export function sendDropoffUpdate(studentId, droppedOffByName) {
         console.log("USDI response: " + JSON.stringify(response));
         resolve()
       })
+    })
+}
+
+
+export function sendClearDropoff(studentId) {
+  const day = getDayOfWeek()
+  const url = `${clearDropoffUrlPrefix}/${studentId}/${day}`
+  return fetch(url, {
+    method: 'GET',
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log("clearDropoff response json: " + JSON.stringify(json))
+      setIndividualRecord(studentId, json)
     })
 }

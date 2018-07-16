@@ -70,7 +70,7 @@ export default class Output extends React.Component {
 
   render() {
 
-    console.log("alpha render(), activeStudentId is: " + this.state.activeStudentId);
+    //console.log("alpha render(), activeStudentId is: " + this.state.activeStudentId);
 
     /*
     return <View style={{h

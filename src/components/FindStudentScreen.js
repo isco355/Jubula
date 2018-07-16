@@ -50,6 +50,8 @@ export default class FindStudentScreen extends React.Component {
 
 
   render() {
+    //console.log("FindStudent render(), studentMatch: " + this.state.studentMatch)
+
     return (
       <View style={{
             flex:1,
@@ -61,7 +63,7 @@ export default class FindStudentScreen extends React.Component {
               flex: 10,
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: '6em',
+              marginTop: '12em',
             }}
             >
 

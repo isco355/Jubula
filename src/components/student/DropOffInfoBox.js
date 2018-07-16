@@ -36,8 +36,8 @@ export default class DropoffInfoBox extends React.Component {
   render() {
 
     const droppedOffByName = this.state.studentData.droppedOffByName
-    console.log("dobn:" + JSON.stringify(this.state.studentData))
-    console.log("dobn:" + droppedOffByName)
+    //console.log("dobn:" + JSON.stringify(this.state.studentData))
+    //console.log("dobn:" + droppedOffByName)
     return (
       <View>
         <View style={{
