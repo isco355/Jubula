@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TextInput, ImageBackground, ScrollView } from 'react-native'
+import { View, Button, Text, TextInput, ImageBackground, ScrollView } from 'react-native'
 import { utils, RuuiProvider, Tooltip } from 'react-universal-ui'
 
 import { getStudentDataStore } from './util/utils'
@@ -59,6 +59,7 @@ export default class FindStudentScreen extends React.Component {
             justifyContent:'center',
           }}>
 
+
            <View style={{
               flex: 10,
               justifyContent: 'center',
@@ -109,6 +110,7 @@ export default class FindStudentScreen extends React.Component {
             }
 
           </View>
+          <Button title="Reports" onPress={this.props.setReportsScreen}/>
       </View>
     )
   }

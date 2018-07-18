@@ -46,8 +46,8 @@ export default class Output extends React.Component {
   refreshStudents() {
     loadStudentList()
       .then(() => {
-        //this.activeScreen = 'FindStudentScreen'
-        this.activeScreen = 'Reports'
+        this.activeScreen = 'FindStudentScreen'
+        //this.activeScreen = 'Reports'
         this.forceUpdate()
     })
   }
@@ -65,6 +65,10 @@ export default class Output extends React.Component {
       this.setState({ activeStudentId: null })
       this.refreshStudents()
     }
+    if (screenReleasingHold === 'Reports') {
+      this.activeScreen = 'FindStudentsScreen'
+      this.refreshStudents()
+    }
   }
 
   setReportsScreen() {
@@ -74,27 +78,12 @@ export default class Output extends React.Component {
 
 
   render() {
-
-    //console.log("alpha render(), activeStudentId is: " + this.state.activeStudentId);
-
-    /*
-    return <View style={{h
-    flex: 1,
-          flexDirection:'column',
-          alignItems:'center',
-          justifyContent:'center',
-         }}
-      >
-    */
-
-
     return (
 
-      <View>
-        <Button title="Reports" onPress={this.setReportsScreen} />
+      <View style={{ flex: 1 }}>
 
       { this.activeScreen === 'Reports' ? (
-          <ReportScreen />
+          <ReportScreen release={this.screenLever} />
 
         ) : (
           <ImageBackground style={{ width: this.width, height: this.height }}
@@ -105,6 +94,7 @@ export default class Output extends React.Component {
                   <FindStudentScreen
                     screenLever={this.screenLever}
                     screenWidth={this.width}
+                    setReportsScreen={this.setReportsScreen}
                   />
               }
 

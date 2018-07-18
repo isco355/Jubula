@@ -5,11 +5,10 @@ const Promise = require('bluebird')
 //
 const heroku = 'http://alsi-parliament.herokuapp.com'
 const local = 'http://localhost:9292'
-//const cubaHost = heroku
-const cubaHost = local
+const cubaHost = heroku
+//const cubaHost = local
 
 const studentListUrl = `${cubaHost}/studentList`
-const checkInUrl = `${cubaHost}/checkIn`
 const clearDropoffUrlPrefix = `${cubaHost}/clearCheckIn`
 
 
