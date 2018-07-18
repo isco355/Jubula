@@ -6,6 +6,7 @@ import { loadStudentList } from './util/utils'
 import { getStudentDataStore } from './util/utils'
 import FindStudentScreen from './FindStudentScreen'
 import StudentInfoScreen from './student/StudentInfoScreen'
+import ReportScreen from './reports/ReportsScreen'
 
 
 export default class Output extends React.Component {
@@ -28,12 +29,10 @@ export default class Output extends React.Component {
     this.width = this.baseWidth / this.scale
     this.height = this.baseHeight / this.scale
 
-    this.activeScreen = 'Alpha'
     //this.activeScreen = 'FindStudentScreen'
     //this.activeScreen = 'StudentInfoScreen'
 
-    //this.sdata = {"id":1,"firstName":"Helen","lastName":"Folasade","age":16,"checkedIn":false,"designatedBus":"Richmond","staffNotes":null,"intendedDroppedOffByName":"Michael Jeffrey Jordan","intendedDroppedOffByPhone":"704-555-1212","intendedDroppedOffByEmail":"thegoat@nba.com","actualDroppedOffByName":null,"actualDroppedOffByPhone":null,"actualDroppedOffByEmail":null}
-
+    this.setReportsScreen = this.setReportsScreen.bind(this)
     this.refreshStudents = this.refreshStudents.bind(this)
     this.screenLever = this.screenLever.bind(this)
   }
@@ -47,7 +46,8 @@ export default class Output extends React.Component {
   refreshStudents() {
     loadStudentList()
       .then(() => {
-        this.activeScreen = 'FindStudentScreen'
+        //this.activeScreen = 'FindStudentScreen'
+        this.activeScreen = 'Reports'
         this.forceUpdate()
     })
   }
@@ -67,6 +67,11 @@ export default class Output extends React.Component {
     }
   }
 
+  setReportsScreen() {
+    this.activeScreen = 'Reports'
+    this.forceUpdate()
+  }
+
 
   render() {
 
@@ -83,33 +88,40 @@ export default class Output extends React.Component {
     */
 
 
-
     return (
 
-        <ImageBackground style={{ width: this.width, height: this.height }}
-          source={require('./assets/iphonex.png')}
-        >
+      <View>
+        <Button title="Reports" onPress={this.setReportsScreen} />
 
-            { this.activeScreen === 'FindStudentScreen' &&
-                <FindStudentScreen
-                  screenLever={this.screenLever}
-                  screenWidth={this.width}
+      { this.activeScreen === 'Reports' ? (
+          <ReportScreen />
+
+        ) : (
+          <ImageBackground style={{ width: this.width, height: this.height }}
+            source={require('./assets/iphonex.png')}
+          >
+
+              { this.activeScreen === 'FindStudentScreen' &&
+                  <FindStudentScreen
+                    screenLever={this.screenLever}
+                    screenWidth={this.width}
+                  />
+              }
+
+
+              { this.activeScreen === 'StudentInfoScreen' &&
+                  <StudentInfoScreen
+                    screenLever={this.screenLever}
+                    studentId={this.state.activeStudentId}
                 />
-            }
+              }
 
 
-            { this.activeScreen === 'StudentInfoScreen' &&
-                <StudentInfoScreen
-                  screenLever={this.screenLever}
-                  studentId={this.state.activeStudentId}
-              />
-            }
+          </ImageBackground>
+        )
+      }
 
-
-        </ImageBackground>
-
+      </View>
     )
-
-
-}
+  }
 }

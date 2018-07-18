@@ -125,7 +125,7 @@ export default class StudentInfoScreen extends React.Component {
           <View>
             <View style={{
               flex: 5,
-              marginTop: '6em',
+              marginTop: '4em',
               marginLeft: '2em',
               marginRight: '1em',
             }}
@@ -141,7 +141,12 @@ export default class StudentInfoScreen extends React.Component {
               { checkedInDisplay ? (
                 <View>
                   <Text>Check In time:{"\n"}{dropoffTime}</Text>
-                  <Button title="Clear" onPress={() => this.clearDropoff({ studentData })} />
+                  <View style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                  }}>
+                    <Button title="Clear checkin" onPress={() => this.clearDropoff({ studentData })} />
+                  </View>
                 </View>
                 ) : (
                   null
