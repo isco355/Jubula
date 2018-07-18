@@ -102,6 +102,7 @@ export default class FindStudentScreen extends React.Component {
             }}
             >
 
+            <Button title="Reports" onPress={this.props.setReportsScreen}/>
 
             {
               this.state.students
@@ -110,7 +111,6 @@ export default class FindStudentScreen extends React.Component {
             }
 
           </View>
-          <Button title="Reports" onPress={this.props.setReportsScreen}/>
       </View>
     )
   }
