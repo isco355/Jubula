@@ -76,7 +76,7 @@ class MatchButton extends React.Component {
           flex: 1,
           margin: 3,
         }}>
-          <Button title="Check In" onPress={this.release}/>
+          <Button title="Go" onPress={this.release}/>
         </View>
       </View>
     )
