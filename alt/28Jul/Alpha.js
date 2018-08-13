@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import React from 'react'
 import { View, Text, StyleSheet, TextInput,ScollView,ImageBackground } from 'react-native'
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
@@ -30,9 +29,11 @@ export default class Output extends React.Component {
 
     this.state = {
        students: ['joe','maria','pablo'],
+      studentMatch: null,
       searchFieldText: '',
     }
 
+    this.loadStudentList = this.loadStudentList.bind(this)
   }
 
 
@@ -41,7 +42,17 @@ export default class Output extends React.Component {
   }
 
 
-
+  loadStudentList() {
+    console.log("LSL() retrieving students from: " + this.studentListUrl);
+    return fetch(this.studentListUrl, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("LSL() retrieved students: " + JSON.stringify(json))
+        this.setState({ students: json })
+      })
+  }
 
 
   render() {
@@ -60,8 +71,11 @@ export default class Output extends React.Component {
         <ImageBackground style={{ width: this.width, height: this.height }}
           source={require('./assets/iphonex.png')}
         >
-        <FindScreen/>
 
+            { this.activeScreen === 'FindScreen' &&
+                <FindScreen />
+
+            }
         </ImageBackground>
 
 

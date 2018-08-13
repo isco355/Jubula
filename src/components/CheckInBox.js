@@ -30,6 +30,35 @@ class CheckInBox extends React.Component {
     console.log("CI " + name.text);
   }
 
+  export default class App extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Welcome to React Native</Text>
+        <Text style={styles.welcome}>Welcome to React Native</Text>
+        <Text style={styles.welcome}>Welcome to React Native</Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    flex: 1,
+    margin: 20,
+    backgroundColor: 'orange',
+    margin: 10,
+    textAlign: 'center',
+    fontSize: 20,
+    paddingTop: 70,
+  }
+});
+
     /*
   render() {
     const name = this.props.name

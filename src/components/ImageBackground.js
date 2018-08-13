@@ -88,24 +88,24 @@ export default class Output extends React.Component {
     <Image source={require('../assets/iphonex.png')} onLoad={this.onBackgroundLoad} />
     <Image onLoad={this.onBgLoad} />
           source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
-             <Image 
+             <Image
           style={{
             position: 'absolute',
             left: '0px',
             top: '0px',
             width: 250, height: 500
-          source={require('../assets/sonic.png')} 
+          source={require('../assets/sonic.png')}
           onLoad={this.onBgLoad} />
           }}
 
           */
-    return <View>
+    return (<View>
        <Image
           style={{width: 250, height: 500}}
-          source={require('../assets/iphonex.png')} 
-        />
-  
+          source={require('../assets/iphonex.png')}/>
 
-    </View>
+        )
+        </ImageBackground>
+
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet,Image, TextInput,ScollView,DrawerLayoutAndroid } from 'react-native'
-//import {Button} from 'react-native-elements'
-import { utils, RuuiProvider, Tooltip } from 'react-universal-ui'
+import { View, Text, StyleSheet,Image, TextInput,ScollView, } from 'react-native'
+import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import StudentMatch from './MatchStudent'
 import Box from './Box'
@@ -14,25 +13,11 @@ export default class FindScreen extends React.Component {
     console.log("FindScreen props: " + JSON.stringify(props))
 
     this.state = {
-      bank:10,
-      available:[
-      { name: 'messi', age: 1, price: 10},
-      { name: 'Susana', age: 2, price: 2},
-      { name: 'Hector' , age: 3, price: 50},
-      { name: 'Dybala', age: 4, price: 1},
-      { name: 'pugba', age: 5, price: 3},
-      { name: 'Lozano', age: 6, price: 3},
-      { name: 'Ochoa' , age: 7, price: 35},
-      { name: 'Cristiano', age: 8, price: 5},
-      { name: 'Kun Aguero' , age: 9,price:12},
-      { name: 'vic', age: 10, price: 8},
-                      ],
-      myPlayers:[],
+      students: ['joe','maria','pablo'],
+      studentMatch: null,
+      searchFieldText: '',
+    }
 
-
-  }
-
-  console.log(this.state.bank)
 
     this.findMatches = this.findMatches.bind(this)
 
@@ -62,19 +47,25 @@ export default class FindScreen extends React.Component {
             <View style={styles.slicemanu}>
 
             <Text style={styles.sliceicon}> slice </Text>
-
         </View>
         <View style={styles.accountItem}>
-                <Text style={styles.textbank}> bank: {this.bank} </Text>
+                <Text style={styles.textbank}> bank: </Text>
+                <Text style={styles.textbank}> amount </Text>
+                <View style={styles.circlelogo}>
+                <Text style={styles.imgcoin}> log </Text>
                 <Image
                 style={styles.imgcoin}
                 source={require('./assets/coin.png')}
                 />
+                </View>
               </View>
               </View>
               <View style={styles.imageswiper}>
               <Text style={styles.swiper}> placeholder </Text>
-
+              <Image
+              style={styles.imgcoin}
+              source={require('./assets/coin.png')}
+              />
               </View>
               <View style={styles.headFilterplayer}>
               <View style={styles.filterhead}>
@@ -85,12 +76,10 @@ export default class FindScreen extends React.Component {
             </View>
             <View style={styles.filterhead}>
             <Text style={styles.textAge}> age: </Text>
-
             </View>
             </View>
             <View style={styles.headplayersSelect}>
-            <Text style={styles.swiper}> placeholder </Text>
-
+              <Box/>
             </View>
         <View style={styles.headPurches}>
          <View style={styles.headTotalamount}>
@@ -120,41 +109,44 @@ const styles = StyleSheet.create({
     paddingTop: 58,
     padding: 12,
 
-
   },
   headcontainer: {
-    alignItems: 'center',
     flex:1,
+    backgroundColor: '#c9c9c9',
     flexDirection: 'row',
     justifyContent:'flex-end',
+    justifyContent:'space-between',
     paddingTop: 7,
     height:37,
-    justifyContent: 'space-between'
-  },
-  slicemanu:{
-    flexDirection: 'row',
-
-  },
-  sliceicon:{
-    fontSize: 21,
 
   },
   accountItem:{
     flexDirection: 'row',
+    backgroundColor: '#41a0f4',
     borderRadius: 12,
     justifyContent: 'center'
+  },
+  circlelogo:{
+    flex:1,
+    justifyContent:'center'
   },
   textbank:{
     fontSize: 21,
 
+
   },
-  imgcoin:{
-    height: 30,
-    width: 30,
+  slicemanu:{
+    flexDirection: 'row',
+    backgroundColor: '#41a0f4',
+    borderRadius: 12,
+  },
+    sliceicon:{
+      fontSize: 21,
+
   },
   imageswiper:{
     backgroundColor: '#427af4',
-    flex:4,
+    flex:5,
 
   },
   swiper:{
@@ -162,38 +154,29 @@ const styles = StyleSheet.create({
     color:'white',
     flex:1,
     alignSelf:'stretch',
+
+
+
+
+  },
+  imgcoin:{
+    flex: 1,
   },
   headFilterplayer:{
     justifyContent:'center',
-    justifyContent:'space-around',
-
-    flex:2,
-  },
-  filterhead:{
-
-  },
-  textName:{
-
-  },
-  textprice:{
-
-  },
-  textAge:{
-
+    alignItems:'center',
+    flex:3,
+    flexDirection: 'row'
   },
   headplayersSelect:{
-    backgroundColor:'grey',
-    flex:4,
+    backgroundColor:'black',
+    flex:5,
+
   },
   headPurches:{
-    backgroundColor:'white',
+    backgroundColor:'#f44100',
     flex:1,
     borderRadius:10
   },
-  headTotalamount:{
 
-  },
-  totalamount:{
-
-},
 })

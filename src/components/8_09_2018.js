@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet,Image, TextInput,ScollView,DrawerLayoutAndroid } from 'react-native'
-//import {Button} from 'react-native-elements'
-import { utils, RuuiProvider, Tooltip } from 'react-universal-ui'
+import { View, Text, StyleSheet,Image, TextInput,ScollView, } from 'react-native'
+import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui'
 
 import StudentMatch from './MatchStudent'
 import Box from './Box'
